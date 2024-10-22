@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:gyde_app/app/app.bottomsheets.dart';
 import 'package:gyde_app/app/app.dialogs.dart';
 import 'package:gyde_app/app/app.locator.dart';
-
-import 'features/app/app_view.dart';
+import 'package:gyde_app/features/app/app_view.dart';
 
 void main() async {
   await runZonedGuarded(() async {
@@ -21,9 +20,7 @@ void main() async {
 
     runApp(const AppView());
   }, (exception, stackTrace) async {
-    // Handle exceptions here
     print('Caught error: $exception');
     print('Stack trace: $stackTrace');
-    // You might want to log this to a service or show a user-friendly error message
   });
 }
