@@ -21,6 +21,7 @@ class MainRidesView extends StatelessWidget {
         body: Column(
           children: [
             SegmentedControl(),
+            ServiceCategories(),
             Expanded(
               child: PageView(
                 controller: model.pageController,
@@ -36,6 +37,7 @@ class MainRidesView extends StatelessWidget {
               ),
             ),
             FeaturedChauffeurSection(),
+            CorporateElitePackage(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -49,6 +51,7 @@ class MainRidesView extends StatelessWidget {
           currentIndex: model.currentTabIndex,
           onTap: model.setTabIndex,
         ),
+        backgroundColor: Colors.black,
       ),
     );
   }
@@ -108,7 +111,48 @@ class RidesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(emptyMessage),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(emptyMessage, style: TextStyle(color: Colors.white)),
+          Text(
+            'As soon as you book a ride, all of your relevant details will be shown here.',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ServiceCategories extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ServiceCategory(label: 'Airport Trips'),
+          ServiceCategory(label: 'Eco Friendly'),
+          ServiceCategory(label: 'Shared Rides'),
+        ],
+      ),
+    );
+  }
+}
+
+class ServiceCategory extends StatelessWidget {
+  final String label;
+  ServiceCategory({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(Icons.local_taxi, color: Colors.white),
+        Text(label, style: TextStyle(color: Colors.white)),
+      ],
     );
   }
 }
@@ -118,13 +162,17 @@ class FeaturedChauffeurSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(8.0),
+      color: Colors.grey[900],
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Your Chauffeur (1/1)',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
             SizedBox(height: 8),
             Row(
               children: [
@@ -135,21 +183,49 @@ class FeaturedChauffeurSection extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Edward', style: TextStyle(fontSize: 16)),
-                    Text('Rating: 4.8'),
-                    Text('Status: Online'),
+                    Text('Edward',
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
+                    Text('Rating: 4.8', style: TextStyle(color: Colors.white)),
+                    Text('Status: Online',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ],
             ),
             SizedBox(height: 8),
-            Text('Car: BMW 7 Series'),
-            Text('Availability: Mon - Sat, 09:00 am - 05:00 pm'),
+            Text('Car: BMW 7 Series', style: TextStyle(color: Colors.white)),
+            Text('Availability: Mon - Sat, 09:00 am - 05:00 pm',
+                style: TextStyle(color: Colors.white)),
             SizedBox(height: 8),
             Text(
               'Edward is a top-rated driver with a 4.8-star rating, offering premium service with his BMW 7 Series. Available from Monday to Saturday, 9 AM - 5 PM, at \$65/hour, he ensures a comfortable and reliable ride for every journey.',
               style: TextStyle(color: Colors.grey),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CorporateElitePackage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      color: Colors.grey[900],
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Corporate Elite Package',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+            SizedBox(height: 8),
+            Text('Monthly Fee \$5000', style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

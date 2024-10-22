@@ -25,6 +25,24 @@ class ProfileView extends StatelessWidget {
             _buildAnalyticsSection(),
           ],
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_car),
+              label: 'Rides',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Chauffeur',
+            ),
+          ],
+          currentIndex: model.currentIndex,
+          onTap: model.setIndex,
+        ),
       ),
     );
   }
@@ -113,5 +131,11 @@ class ProfileView extends StatelessWidget {
 }
 
 class ProfileViewModel extends BaseViewModel {
-  // Add your ViewModel logic here
+  int _currentIndex = 0;
+  int get currentIndex => _currentIndex;
+
+  void setIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
 }

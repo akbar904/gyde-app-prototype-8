@@ -10,6 +10,14 @@ class ChauffeurDetailsView extends StatelessWidget {
         appBar: AppBar(
           title: Text('Chauffeur Details'),
           backgroundColor: Colors.black,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                // Navigate to profile page
+              },
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -91,6 +99,28 @@ class ChauffeurDetailsView extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.black,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white60,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_car),
+              label: 'Rides',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Chauffeur',
+            ),
+          ],
+          onTap: (index) {
+            // Handle navigation based on index
+          },
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 {
   "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring an onboarding flow and a homepage flow for a luxury chauffeur service app called Gyde, with routing, dependency injection, and dialog/bottom sheet management.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. The onboarding flow consists of multiple pages with sliding transitions. The homepage flow includes a main rides page with segmented navigation, a featured chauffeur section, a profile page, and a bottom navigation bar.",
+  "project_description": "A Flutter project using the Stacked architecture, featuring an onboarding flow and a comprehensive homepage flow for a luxury chauffeur service app called Gyde, with routing, dependency injection, and dialog/bottom sheet management.",
+  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. The onboarding flow consists of multiple pages with sliding transitions. The homepage flow includes a main rides page with segmented navigation, a featured chauffeur section, a profile page, and a bottom navigation bar. The app is designed with a dark theme and smooth transitions between screens.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -51,7 +51,7 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for the onboarding flow (WelcomeView, AuthOptionsView, PhoneInputView, VerificationCodeView, EmailCollectionView, WelcomeConfirmationView, TermsConditionsView) and homepage flow (MainRidesView, ChauffeurDetailsView, ProfileView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for the onboarding flow and homepage flow, services, bottom sheets, and dialogs. The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
@@ -136,7 +136,7 @@
     },
     {
       "name": "lib/features/homepage/main_rides_view.dart",
-      "description": "The main rides page with segmented navigation for 'Upcoming', 'Past', and 'Canceled' rides.",
+      "description": "The main rides page with segmented navigation for 'Upcoming', 'Past', and 'Canceled' rides. Includes a header with location and profile icon, service categories, and a featured chauffeur section.",
       "class_diagram": "@startuml\nclass MainRidesView\n@enduml",
       "methods": [],
       "dependencies": [
@@ -145,7 +145,7 @@
     },
     {
       "name": "lib/features/homepage/chauffeur_details_view.dart",
-      "description": "The chauffeur details page showing the profile with car information and a 'Send Message' button.",
+      "description": "The chauffeur details page showing the profile with car information, availability, and a 'Send Message' button.",
       "class_diagram": "@startuml\nclass ChauffeurDetailsView\n@enduml",
       "methods": [],
       "dependencies": [
@@ -154,7 +154,7 @@
     },
     {
       "name": "lib/features/homepage/profile_view.dart",
-      "description": "The profile page displaying user information and sections for 'My Subscriptions', 'Promos', 'Payment Method', 'Change Language', 'Saved Addresses', and 'Notifications'.",
+      "description": "The profile page displaying user information and sections for 'My Subscriptions', 'Promos', 'Payment Method', 'Change Language', 'Saved Addresses', 'Notifications', and analytics.",
       "class_diagram": "@startuml\nclass ProfileView\n@enduml",
       "methods": [],
       "dependencies": [
