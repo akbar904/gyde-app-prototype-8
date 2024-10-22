@@ -1,7 +1,7 @@
 {
   "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection.",
+  "project_description": "A Flutter project using the Stacked architecture, featuring an onboarding flow for a luxury chauffeur service app called Gyde, with routing, dependency injection, and dialog/bottom sheet management.",
+  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. The onboarding flow consists of multiple pages with sliding transitions.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -12,17 +12,14 @@
         "app.router.dart": {}
       },
       "features": {
-        "app": {
-          "app_view.dart": {},
-          "app_viewmodel.dart": {}
-        },
-        "home": {
-          "home_view.dart": {},
-          "home_viewmodel.dart": {}
-        },
-        "startup": {
-          "startup_view.dart": {},
-          "startup_viewmodel.dart": {}
+        "onboarding": {
+          "welcome_view.dart": {},
+          "auth_options_view.dart": {},
+          "phone_input_view.dart": {},
+          "verification_code_view.dart": {},
+          "email_collection_view.dart": {},
+          "welcome_confirmation_view.dart": {},
+          "terms_conditions_view.dart": {}
         }
       },
       "ui": {
@@ -49,7 +46,7 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes (HomeView, StartupView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for the onboarding flow (WelcomeView, AuthOptionsView, PhoneInputView, VerificationCodeView, EmailCollectionView, WelcomeConfirmationView, TermsConditionsView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
@@ -57,84 +54,76 @@
         "package:stacked_services/stacked_services.dart",
         "package:my_app/ui/bottom_sheets/notice/notice_sheet.dart",
         "package:my_app/ui/dialogs/info_alert/info_alert_dialog.dart",
-        "package:my_app/features/home/home_view.dart",
-        "package:my_app/features/startup/startup_view.dart"
+        "package:my_app/features/onboarding/welcome_view.dart",
+        "package:my_app/features/onboarding/auth_options_view.dart",
+        "package:my_app/features/onboarding/phone_input_view.dart",
+        "package:my_app/features/onboarding/verification_code_view.dart",
+        "package:my_app/features/onboarding/email_collection_view.dart",
+        "package:my_app/features/onboarding/welcome_confirmation_view.dart",
+        "package:my_app/features/onboarding/terms_conditions_view.dart"
       ]
     },
     {
-      "name": "lib/features/app/app_view.dart",
-      "description": "Defines the root widget of the application",
-      "class_diagram": "@startuml\nclass AppView\nclass _App\n@enduml",
+      "name": "lib/features/onboarding/welcome_view.dart",
+      "description": "The welcome page of the onboarding flow, introducing users to the Gyde app.",
+      "class_diagram": "@startuml\nclass WelcomeView\n@enduml",
       "methods": [],
       "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:stacked_services/stacked_services.dart"
+        "package:stacked/stacked.dart"
       ]
     },
     {
-      "name": "lib/features/home/home_view.dart",
-      "description": "The main home view of the application.",
-      "class_diagram": "@startuml\nclass HomeView\n@enduml",
+      "name": "lib/features/onboarding/auth_options_view.dart",
+      "description": "The authentication options page, allowing users to continue with phone or email.",
+      "class_diagram": "@startuml\nclass AuthOptionsView\n@enduml",
       "methods": [],
       "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
+        "package:stacked/stacked.dart"
       ]
     },
     {
-      "name": "lib/features/home/home_viewmodel.dart",
-      "description": "ViewModel for the HomeView, manages the state and business logic.",
-      "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
-      "methods": [
-        {
-          "name": "incrementCounter",
-          "description": "Increments the counter value",
-          "parameters": [],
-          "return_type": "void"
-        },
-        {
-          "name": "showDialog",
-          "description": "Shows a custom dialog",
-          "parameters": [],
-          "return_type": "void"
-        },
-        {
-          "name": "showBottomSheet",
-          "description": "Shows a custom bottom sheet",
-          "parameters": [],
-          "return_type": "void"
-        }
-      ],
-      "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:stacked_services/stacked_services.dart"
-      ]
-    },
-    {
-      "name": "lib/features/startup/startup_view.dart",
-      "description": "The startup view shown when the app is first launched.",
-      "class_diagram": "@startuml\nclass StartupView\n@enduml",
+      "name": "lib/features/onboarding/phone_input_view.dart",
+      "description": "The phone number input page for user verification.",
+      "class_diagram": "@startuml\nclass PhoneInputView\n@enduml",
       "methods": [],
       "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
+        "package:stacked/stacked.dart"
       ]
     },
     {
-      "name": "lib/features/startup/startup_viewmodel.dart",
-      "description": "ViewModel for the StartupView, handles initialization logic.",
-      "class_diagram": "@startuml\nclass StartupViewModel\n@enduml",
-      "methods": [
-        {
-          "name": "runStartupLogic",
-          "description": "Runs the startup logic and navigates to the home view",
-          "parameters": [],
-          "return_type": "Future"
-        }
-      ],
+      "name": "lib/features/onboarding/verification_code_view.dart",
+      "description": "The verification code page for entering the code sent to the user's phone.",
+      "class_diagram": "@startuml\nclass VerificationCodeView\n@enduml",
+      "methods": [],
       "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:stacked_services/stacked_services.dart"
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/onboarding/email_collection_view.dart",
+      "description": "The email collection page for providing tailored services.",
+      "class_diagram": "@startuml\nclass EmailCollectionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/onboarding/welcome_confirmation_view.dart",
+      "description": "The welcome confirmation page, confirming access to Gyde services.",
+      "class_diagram": "@startuml\nclass WelcomeConfirmationView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/onboarding/terms_conditions_view.dart",
+      "description": "The terms and conditions page for user agreement.",
+      "class_diagram": "@startuml\nclass TermsConditionsView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
       ]
     },
     {
@@ -155,7 +144,7 @@
         "package:my_app/app/app.bottomsheets.dart",
         "package:my_app/app/app.dialogs.dart",
         "package:my_app/app/app.locator.dart",
-        "package:my_app/features/app/app_view.dart"
+        "package:my_app/features/onboarding/welcome_view.dart"
       ]
     }
   ],
@@ -181,7 +170,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant StartupView\nparticipant StartupViewModel\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> StartupView: Initialize\nStartupView -> StartupViewModel: Run startup logic\nStartupViewModel -> HomeView: Navigate on completion\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\nHomeViewModel -> HomeView: Update UI\nHomeViewModel -> DialogService: Show dialog\nHomeViewModel -> BottomSheetService: Show bottom sheet\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., HomeViewModel, StartupViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the StartupView. After completing initialization logic, it navigates to the HomeView. Navigation between views is handled by the Stacked Router defined in app.router.dart."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant WelcomeView\nparticipant AuthOptionsView\nparticipant PhoneInputView\nparticipant VerificationCodeView\nparticipant EmailCollectionView\nparticipant WelcomeConfirmationView\nparticipant TermsConditionsView\n\nUser -> main: Launch app\nmain -> WelcomeView: Show welcome page\nUser -> WelcomeView: Click 'Get Started'\nWelcomeView -> AuthOptionsView: Navigate to auth options\nUser -> AuthOptionsView: Choose auth method\nAuthOptionsView -> PhoneInputView: Navigate to phone input\nUser -> PhoneInputView: Enter phone number\nPhoneInputView -> VerificationCodeView: Navigate to verification code\nUser -> VerificationCodeView: Enter code\nVerificationCodeView -> EmailCollectionView: Navigate to email collection\nUser -> EmailCollectionView: Enter email\nEmailCollectionView -> WelcomeConfirmationView: Navigate to welcome confirmation\nUser -> WelcomeConfirmationView: Confirm\nWelcomeConfirmationView -> TermsConditionsView: Navigate to terms and conditions\nUser -> TermsConditionsView: Agree\n@enduml",
+  "state_management_flow": "State is managed using the Stacked architecture. ViewModels handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
+  "navigation_flow": "The application starts with main.dart, which sets up the app and runs the onboarding flow starting with WelcomeView. Navigation between onboarding pages is handled by the Stacked Router defined in app.router.dart, using sliding transitions. After completing the onboarding flow, users can access the main app features."
 }
