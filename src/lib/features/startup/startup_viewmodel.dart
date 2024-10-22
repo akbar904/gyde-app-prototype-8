@@ -12,9 +12,7 @@ class StartupViewModel extends BaseViewModel {
     // ignore: inference_failure_on_instance_creation
     await Future.delayed(const Duration(seconds: 1));
 
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
-
-    await _navigationService.replaceWithHomeView();
+    // Navigate to the onboarding flow starting with the WelcomeView
+    await _navigationService.replaceWith(Routes.welcomeView);
   }
 }
