@@ -7,6 +7,9 @@ import 'package:gyde_app/features/onboarding/verification_code_view.dart';
 import 'package:gyde_app/features/onboarding/email_collection_view.dart';
 import 'package:gyde_app/features/onboarding/welcome_confirmation_view.dart';
 import 'package:gyde_app/features/onboarding/terms_conditions_view.dart';
+import 'package:gyde_app/features/homepage/main_rides_view.dart';
+import 'package:gyde_app/features/homepage/chauffeur_details_view.dart';
+import 'package:gyde_app/features/homepage/profile_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
@@ -20,6 +23,9 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: EmailCollectionView),
     MaterialRoute(page: WelcomeConfirmationView),
     MaterialRoute(page: TermsConditionsView),
+    MaterialRoute(page: MainRidesView),
+    MaterialRoute(page: ChauffeurDetailsView),
+    MaterialRoute(page: ProfileView),
     // @stacked-route
   ],
   dependencies: [
