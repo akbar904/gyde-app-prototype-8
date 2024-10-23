@@ -13,8 +13,15 @@ import 'package:gyde_app/features/onboarding/terms_conditions_view.dart';
 import 'package:gyde_app/features/home/main_rides_view.dart';
 import 'package:gyde_app/features/home/chauffeur_details_view.dart';
 import 'package:gyde_app/features/home/profile_view.dart';
+import 'package:gyde_app/features/profile_setup/mode_selection_view.dart';
+import 'package:gyde_app/features/profile_setup/personal_info_view.dart';
+import 'package:gyde_app/features/profile_setup/company_info_view.dart';
+import 'package:gyde_app/features/profile_setup/package_selection_view.dart';
+import 'package:gyde_app/features/profile_setup/payment_method_view.dart';
+import 'package:gyde_app/features/profile_setup/card_details_view.dart';
+import 'package:gyde_app/features/profile_setup/notification_permission_view.dart';
+import 'package:gyde_app/features/profile_setup/profile_completion_view.dart';
 import 'package:gyde_app/services/theme_service.dart';
-// @stacked-import
 
 @StackedApp(
   routes: [
@@ -29,22 +36,26 @@ import 'package:gyde_app/services/theme_service.dart';
     MaterialRoute(page: MainRidesView),
     MaterialRoute(page: ChauffeurDetailsView),
     MaterialRoute(page: ProfileView),
-// @stacked-route
+    MaterialRoute(page: ModeSelectionView),
+    MaterialRoute(page: PersonalInfoView),
+    MaterialRoute(page: CompanyInfoView),
+    MaterialRoute(page: PackageSelectionView),
+    MaterialRoute(page: PaymentMethodView),
+    MaterialRoute(page: CardDetailsView),
+    MaterialRoute(page: NotificationPermissionView),
+    MaterialRoute(page: ProfileCompletionView),
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ThemeService),
-    // @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
   ],
 )
 class App {}

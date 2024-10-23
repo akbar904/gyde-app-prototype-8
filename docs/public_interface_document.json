@@ -1,7 +1,7 @@
 {
   "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project for a luxury chauffeur service app called Gyde, featuring an onboarding flow with sliding transitions, authentication options, user verification, and a comprehensive home page experience with ride management, chauffeur profiles, and user dashboard functionality.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, onboarding features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. New feature modules for rides, chauffeurs, and profile management have been added, along with a theme service for dark mode support.",
+  "project_description": "A Flutter project for a luxury chauffeur service app called Gyde, featuring an onboarding flow with sliding transitions, authentication options, user verification, and a comprehensive home page experience with ride management, chauffeur profiles, and user dashboard functionality. The app now includes a profile setup flow with Business and Personal modes, guiding users through mode selection, personal/company information collection, package selection, payment integration, and notification permissions.",
+  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, onboarding features, profile setup features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. New feature modules for rides, chauffeurs, profile management, and profile setup have been added, along with a theme service for dark mode support.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -27,6 +27,17 @@
           "chauffeur_details_view.dart": {},
           "profile_view.dart": {},
           "home_viewmodel.dart": {}
+        },
+        "profile_setup": {
+          "mode_selection_view.dart": {},
+          "personal_info_view.dart": {},
+          "company_info_view.dart": {},
+          "package_selection_view.dart": {},
+          "payment_method_view.dart": {},
+          "card_details_view.dart": {},
+          "notification_permission_view.dart": {},
+          "profile_completion_view.dart": {},
+          "profile_setup_viewmodel.dart": {}
         }
       },
       "ui": {
@@ -41,7 +52,7 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for the onboarding flow and services for navigation and authentication.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for the onboarding and profile setup flows, and services for navigation and authentication.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
@@ -56,7 +67,15 @@
         "package:my_app/features/onboarding/terms_conditions_view.dart",
         "package:my_app/features/home/main_rides_view.dart",
         "package:my_app/features/home/chauffeur_details_view.dart",
-        "package:my_app/features/home/profile_view.dart"
+        "package:my_app/features/home/profile_view.dart",
+        "package:my_app/features/profile_setup/mode_selection_view.dart",
+        "package:my_app/features/profile_setup/personal_info_view.dart",
+        "package:my_app/features/profile_setup/company_info_view.dart",
+        "package:my_app/features/profile_setup/package_selection_view.dart",
+        "package:my_app/features/profile_setup/payment_method_view.dart",
+        "package:my_app/features/profile_setup/card_details_view.dart",
+        "package:my_app/features/profile_setup/notification_permission_view.dart",
+        "package:my_app/features/profile_setup/profile_completion_view.dart"
       ]
     },
     {
@@ -170,6 +189,88 @@
       ]
     },
     {
+      "name": "lib/features/profile_setup/mode_selection_view.dart",
+      "description": "Page for selecting between Business and Personal modes.",
+      "class_diagram": "@startuml\nclass ModeSelectionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/personal_info_view.dart",
+      "description": "Page for entering personal information such as first and last name.",
+      "class_diagram": "@startuml\nclass PersonalInfoView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/company_info_view.dart",
+      "description": "Page for entering company information for Business mode users.",
+      "class_diagram": "@startuml\nclass CompanyInfoView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/package_selection_view.dart",
+      "description": "Page for selecting a package based on the chosen mode.",
+      "class_diagram": "@startuml\nclass PackageSelectionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/payment_method_view.dart",
+      "description": "Page for selecting a payment method.",
+      "class_diagram": "@startuml\nclass PaymentMethodView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/card_details_view.dart",
+      "description": "Page for entering credit or debit card details.",
+      "class_diagram": "@startuml\nclass CardDetailsView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/notification_permission_view.dart",
+      "description": "Page for requesting notification permissions.",
+      "class_diagram": "@startuml\nclass NotificationPermissionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/profile_completion_view.dart",
+      "description": "Page confirming profile setup completion with a personalized greeting.",
+      "class_diagram": "@startuml\nclass ProfileCompletionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/features/profile_setup/profile_setup_viewmodel.dart",
+      "description": "ViewModel managing the state and logic for the profile setup flow.",
+      "class_diagram": "@startuml\nclass ProfileSetupViewModel\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
       "name": "lib/main.dart",
       "description": "The entry point of the application. Sets up the app and runs it.",
       "class_diagram": "@startuml\nclass main\n@enduml",
@@ -213,7 +314,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant WelcomeView\nparticipant AuthOptionsView\nparticipant PhoneInputView\nparticipant VerificationCodeView\nparticipant EmailCollectionView\nparticipant WelcomeConfirmationView\nparticipant TermsConditionsView\nparticipant MainRidesView\nparticipant ChauffeurDetailsView\nparticipant ProfileView\n\nUser -> main: Launch app\nmain -> WelcomeView: Show welcome page\nUser -> WelcomeView: Click 'Get Started'\nWelcomeView -> AuthOptionsView: Navigate to auth options\nUser -> AuthOptionsView: Select auth method\nAuthOptionsView -> PhoneInputView: Navigate to phone input\nUser -> PhoneInputView: Enter phone number\nPhoneInputView -> VerificationCodeView: Navigate to verification code\nUser -> VerificationCodeView: Enter code\nVerificationCodeView -> EmailCollectionView: Navigate to email collection\nUser -> EmailCollectionView: Enter email\nEmailCollectionView -> WelcomeConfirmationView: Navigate to welcome confirmation\nUser -> WelcomeConfirmationView: Click 'Continue'\nWelcomeConfirmationView -> TermsConditionsView: Navigate to terms and conditions\nTermsConditionsView -> MainRidesView: Navigate to main rides page\nUser -> MainRidesView: View rides\nMainRidesView -> ChauffeurDetailsView: View chauffeur details\nUser -> ChauffeurDetailsView: Send message\nChauffeurDetailsView -> ProfileView: Navigate to profile\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., OnboardingViewModel, HomeViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs the WelcomeView. The onboarding flow progresses through a series of views with sliding transitions, managed by the Stacked Router defined in app.router.dart. The home page experience includes segmented navigation for rides, chauffeur details, and profile management, with a bottom navigation bar for easy access to main sections."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant WelcomeView\nparticipant AuthOptionsView\nparticipant PhoneInputView\nparticipant VerificationCodeView\nparticipant EmailCollectionView\nparticipant WelcomeConfirmationView\nparticipant TermsConditionsView\nparticipant MainRidesView\nparticipant ChauffeurDetailsView\nparticipant ProfileView\nparticipant ModeSelectionView\nparticipant PersonalInfoView\nparticipant CompanyInfoView\nparticipant PackageSelectionView\nparticipant PaymentMethodView\nparticipant CardDetailsView\nparticipant NotificationPermissionView\nparticipant ProfileCompletionView\n\nUser -> main: Launch app\nmain -> WelcomeView: Show welcome page\nUser -> WelcomeView: Click 'Get Started'\nWelcomeView -> AuthOptionsView: Navigate to auth options\nUser -> AuthOptionsView: Select auth method\nAuthOptionsView -> PhoneInputView: Navigate to phone input\nUser -> PhoneInputView: Enter phone number\nPhoneInputView -> VerificationCodeView: Navigate to verification code\nUser -> VerificationCodeView: Enter code\nVerificationCodeView -> EmailCollectionView: Navigate to email collection\nUser -> EmailCollectionView: Enter email\nEmailCollectionView -> WelcomeConfirmationView: Navigate to welcome confirmation\nUser -> WelcomeConfirmationView: Click 'Continue'\nWelcomeConfirmationView -> TermsConditionsView: Navigate to terms and conditions\nTermsConditionsView -> ModeSelectionView: Navigate to mode selection\nUser -> ModeSelectionView: Select mode\nModeSelectionView -> PersonalInfoView: Navigate to personal info\nUser -> PersonalInfoView: Enter personal info\nPersonalInfoView -> CompanyInfoView: Navigate to company info (if Business Mode)\nUser -> CompanyInfoView: Enter company info\nCompanyInfoView -> PackageSelectionView: Navigate to package selection\nUser -> PackageSelectionView: Select package\nPackageSelectionView -> PaymentMethodView: Navigate to payment method\nUser -> PaymentMethodView: Select payment method\nPaymentMethodView -> CardDetailsView: Navigate to card details (if card selected)\nUser -> CardDetailsView: Enter card details\nCardDetailsView -> NotificationPermissionView: Navigate to notification permission\nUser -> NotificationPermissionView: Allow notifications\nNotificationPermissionView -> ProfileCompletionView: Navigate to profile completion\nUser -> ProfileCompletionView: Complete setup\nProfileCompletionView -> MainRidesView: Navigate to main rides page\nUser -> MainRidesView: View rides\nMainRidesView -> ChauffeurDetailsView: View chauffeur details\nUser -> ChauffeurDetailsView: Send message\nChauffeurDetailsView -> ProfileView: Navigate to profile\n@enduml",
+  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., OnboardingViewModel, HomeViewModel, ProfileSetupViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
+  "navigation_flow": "The application starts with main.dart, which sets up the app and runs the WelcomeView. The onboarding flow progresses through a series of views with sliding transitions, managed by the Stacked Router defined in app.router.dart. The profile setup flow guides users through mode selection, personal/company information collection, package selection, payment integration, and notification permissions. The home page experience includes segmented navigation for rides, chauffeur details, and profile management, with a bottom navigation bar for easy access to main sections."
 }
