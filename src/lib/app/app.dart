@@ -10,6 +10,10 @@ import 'package:gyde_app/features/onboarding/verification_code_view.dart';
 import 'package:gyde_app/features/onboarding/email_collection_view.dart';
 import 'package:gyde_app/features/onboarding/welcome_confirmation_view.dart';
 import 'package:gyde_app/features/onboarding/terms_conditions_view.dart';
+import 'package:gyde_app/features/home/main_rides_view.dart';
+import 'package:gyde_app/features/home/chauffeur_details_view.dart';
+import 'package:gyde_app/features/home/profile_view.dart';
+import 'package:gyde_app/services/theme_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,12 +26,16 @@ import 'package:gyde_app/features/onboarding/terms_conditions_view.dart';
     MaterialRoute(page: EmailCollectionView),
     MaterialRoute(page: WelcomeConfirmationView),
     MaterialRoute(page: TermsConditionsView),
+    MaterialRoute(page: MainRidesView),
+    MaterialRoute(page: ChauffeurDetailsView),
+    MaterialRoute(page: ProfileView),
 // @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: ThemeService),
     // @stacked-service
   ],
   bottomsheets: [
