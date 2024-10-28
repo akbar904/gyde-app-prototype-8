@@ -1,35 +1,44 @@
-import 'package:gyde_app/app/app.bottomsheets.dart';
-import 'package:gyde_app/app/app.dialogs.dart';
-import 'package:gyde_app/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:gyde_app/app/app.locator.dart';
 
 class HomeViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  String currentLocation = "New York, USA";
+  String chauffeurName = "Edward";
+  double chauffeurRating = 4.8;
+  String chauffeurStatus = "Online";
+  String vehicleModel = "BMW 7 Series";
+  String hourlyRate = "\$65/hour";
+  String availability = "Mon - Sat, 09:00 am - 05:00 pm";
 
-  String get counterLabel => 'Counter is: $_counter';
+  List<String> serviceCategories = [
+    "Airport Trips",
+    "Eco Friendly",
+    "Shared Rides"
+  ];
 
-  int _counter = 0;
+  int selectedRideTab = 0; // 0: Upcoming, 1: Past, 2: Canceled
 
-  void incrementCounter() {
-    _counter++;
+  void setSelectedRideTab(int index) {
+    selectedRideTab = index;
     rebuildUi();
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
-    );
+  Future<void> navigateToBooking() async {
+    // TODO: Implement booking navigation
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
-    );
+  Future<void> navigateToProfile() async {
+    // TODO: Implement profile navigation
+  }
+
+  Future<void> showLocationSelector() async {
+    // TODO: Implement location selection
+  }
+
+  void selectServiceCategory(String category) {
+    // TODO: Implement service category selection
   }
 }
