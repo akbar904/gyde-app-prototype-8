@@ -5,25 +5,25 @@ class PackageSelectionViewModel extends BaseViewModel {
   final NavigationService _navigationService = NavigationService();
 
   String _selectedPackage = '';
-  List<PackageOption> _packages = [
+  final List<PackageOption> _packages = [
     PackageOption(name: 'Corporate Elite Package', price: 5000, features: [
       'Dedicated chauffeur',
       '24/7 availability',
       'Premium vehicles',
-      'Priority booking'
-    ]),
+      'Priority booking',
+    ],),
     PackageOption(name: 'Executive Package', price: 1000, features: [
       'Professional chauffeur',
       'Business hours service',
       'Luxury vehicles',
-      'Standard booking'
-    ]),
+      'Standard booking',
+    ],),
     PackageOption(name: 'VIP Package', price: 2500, features: [
       'Personal chauffeur',
       'Extended hours',
       'Premium vehicles',
-      'Priority support'
-    ])
+      'Priority support',
+    ],),
   ];
 
   String get selectedPackage => _selectedPackage;
@@ -46,10 +46,10 @@ class PackageSelectionViewModel extends BaseViewModel {
 }
 
 class PackageOption {
+
+  PackageOption(
+      {required this.name, required this.price, required this.features,});
   final String name;
   final double price;
   final List<String> features;
-
-  PackageOption(
-      {required this.name, required this.price, required this.features});
 }

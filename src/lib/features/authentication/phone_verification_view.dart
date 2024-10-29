@@ -7,14 +7,16 @@ import 'package:pinput/pinput.dart';
 import 'phone_verification_viewmodel.dart';
 
 class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
+  const PhoneVerificationView({super.key});
+
   @override
   Widget builder(BuildContext context, PhoneVerificationViewModel viewModel,
-      Widget? child) {
+      Widget? child,) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,7 +32,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w600,),
                 ),
                 const Gap(8),
                 const Text(
@@ -71,7 +73,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
-                          fontWeight: FontWeight.w600),
+                          fontWeight: FontWeight.w600,),
                     ),
                   ),
                 ),
@@ -81,7 +83,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w600,),
                 ),
                 const Gap(8),
                 Text(
@@ -98,7 +100,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                     textStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w600,),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(8),
@@ -119,7 +121,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
-                          fontWeight: FontWeight.w600),
+                          fontWeight: FontWeight.w600,),
                     ),
                   ),
                 ),
@@ -133,7 +135,7 @@ class PhoneVerificationView extends StackedView<PhoneVerificationViewModel> {
                     ),
                   ),
                 ),
-              ]
+              ],
             ],
           ),
         ),

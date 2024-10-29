@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:payment_method_viewmodel.dart';
 import 'package:gap/gap.dart';
+import 'package:payment_method_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
 class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
+  const PaymentMethodView({super.key});
+
   @override
   Widget builder(
-      BuildContext context, PaymentMethodViewModel viewModel, Widget? child) {
+      BuildContext context, PaymentMethodViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -19,7 +21,7 @@ class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
               Text(
                 'Payment Method',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.white, fontWeight: FontWeight.bold,),
               ),
               const Gap(8),
               Text(
@@ -42,32 +44,32 @@ class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
   }
 
   Widget _buildPaymentOptions(
-      BuildContext context, PaymentMethodViewModel viewModel) {
+      BuildContext context, PaymentMethodViewModel viewModel,) {
     return Column(
       children: [
         _paymentOption(
             'Credit Card',
             Icons.credit_card,
             viewModel.selectedMethod == 'credit_card',
-            () => viewModel.selectPaymentMethod('credit_card')),
+            () => viewModel.selectPaymentMethod('credit_card'),),
         const Gap(16),
         _paymentOption(
             'Apple Pay',
             Icons.apple,
             viewModel.selectedMethod == 'apple_pay',
-            () => viewModel.selectPaymentMethod('apple_pay')),
+            () => viewModel.selectPaymentMethod('apple_pay'),),
         const Gap(16),
         _paymentOption(
             'Bank Connection',
             Icons.account_balance,
             viewModel.selectedMethod == 'bank',
-            () => viewModel.selectPaymentMethod('bank')),
+            () => viewModel.selectPaymentMethod('bank'),),
       ],
     );
   }
 
   Widget _paymentOption(
-      String title, IconData icon, bool selected, VoidCallback onTap) {
+      String title, IconData icon, bool selected, VoidCallback onTap,) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -76,7 +78,7 @@ class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
             color: selected ? Colors.blue.withOpacity(0.1) : Colors.grey[900],
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-                color: selected ? Colors.blue : Colors.transparent, width: 1)),
+                color: selected ? Colors.blue : Colors.transparent,),),
         child: Row(
           children: [
             Icon(icon, color: Colors.white),
@@ -94,7 +96,7 @@ class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
   }
 
   Widget _buildContinueButton(
-      BuildContext context, PaymentMethodViewModel viewModel) {
+      BuildContext context, PaymentMethodViewModel viewModel,) {
     return ElevatedButton(
       onPressed: viewModel.selectedMethod.isNotEmpty
           ? () => viewModel.continueToNextStep()
@@ -107,7 +109,7 @@ class PaymentMethodView extends StackedView<PaymentMethodViewModel> {
       child: const Text(
         'Continue',
         style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white,),
       ),
     );
   }

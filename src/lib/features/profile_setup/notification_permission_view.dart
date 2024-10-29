@@ -5,14 +5,16 @@ import 'notification_permission_viewmodel.dart';
 
 class NotificationPermissionView
     extends StackedView<NotificationPermissionViewModel> {
+  const NotificationPermissionView({super.key});
+
   @override
   Widget builder(BuildContext context,
-      NotificationPermissionViewModel viewModel, Widget? child) {
+      NotificationPermissionViewModel viewModel, Widget? child,) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -45,13 +47,13 @@ class NotificationPermissionView
 
               ElevatedButton(
                   onPressed: viewModel.requestNotificationPermission,
-                  child: const Text('Enable Notifications')),
+                  child: const Text('Enable Notifications'),),
 
               const SizedBox(height: 16),
 
               TextButton(
                   onPressed: viewModel.skipNotifications,
-                  child: const Text('Skip for Now')),
+                  child: const Text('Skip for Now'),),
 
               const SizedBox(height: 48),
             ],

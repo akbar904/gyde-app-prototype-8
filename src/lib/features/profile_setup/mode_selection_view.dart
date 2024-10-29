@@ -3,14 +3,16 @@ import 'package:stacked/stacked.dart';
 import 'mode_selection_viewmodel.dart';
 
 class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
+  const ModeSelectionView({super.key});
+
   @override
   Widget builder(
-      BuildContext context, ModeSelectionViewModel viewModel, Widget? child) {
+      BuildContext context, ModeSelectionViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -19,7 +21,7 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.white,),
               ),
               const SizedBox(height: 12),
               const Text(
@@ -38,9 +40,9 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                           color: viewModel.selectedMode == 'business'
                               ? Colors.white
                               : Colors.transparent,
-                          width: 2)),
-                  child: Row(
-                    children: const [
+                          width: 2,),),
+                  child: const Row(
+                    children: [
                       Icon(
                         Icons.business,
                         color: Colors.white,
@@ -52,8 +54,8 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                         style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                      )
+                            fontWeight: FontWeight.w500,),
+                      ),
                     ],
                   ),
                 ),
@@ -70,9 +72,9 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                           color: viewModel.selectedMode == 'personal'
                               ? Colors.white
                               : Colors.transparent,
-                          width: 2)),
-                  child: Row(
-                    children: const [
+                          width: 2,),),
+                  child: const Row(
+                    children: [
                       Icon(
                         Icons.person,
                         color: Colors.white,
@@ -84,8 +86,8 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                         style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                      )
+                            fontWeight: FontWeight.w500,),
+                      ),
                     ],
                   ),
                 ),
@@ -98,7 +100,7 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12))),
+                          borderRadius: BorderRadius.circular(12),),),
                   onPressed: viewModel.selectedMode != null
                       ? viewModel.continueToNextStep
                       : null,
@@ -107,10 +109,10 @@ class ModeSelectionView extends StackedView<ModeSelectionViewModel> {
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

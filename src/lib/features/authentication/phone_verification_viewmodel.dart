@@ -1,12 +1,12 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:flutter/material.dart';
 
 class PhoneVerificationViewModel extends BaseViewModel {
   final NavigationService _navigationService = NavigationService();
   String phoneNumber = '';
   String verificationCode = '';
   bool isVerifying = false;
+  @override
   bool hasError = false;
   String errorMessage = '';
   String countryCode = '+1';

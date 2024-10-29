@@ -5,7 +5,7 @@ class HourlyBookingViewModel extends BaseViewModel {
   final _navigationService = NavigationService();
 
   int _selectedHours = 1;
-  double _pricePerHour = 65.0;
+  double _pricePerHour = 65;
   bool _termsAccepted = false;
 
   int get selectedHours => _selectedHours;

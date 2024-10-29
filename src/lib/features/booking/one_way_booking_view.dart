@@ -5,9 +5,11 @@ import 'package:gyde_app/features/booking/one_way_booking_viewmodel.dart';
 import 'package:gap/gap.dart';
 
 class OneWayBookingView extends StackedView<OneWayBookingViewModel> {
+  const OneWayBookingView({super.key});
+
   @override
   Widget builder(
-      BuildContext context, OneWayBookingViewModel viewModel, Widget? child) {
+      BuildContext context, OneWayBookingViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.dark,
       appBar: AppBar(
@@ -24,7 +26,7 @@ class OneWayBookingView extends StackedView<OneWayBookingViewModel> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -33,7 +35,7 @@ class OneWayBookingView extends StackedView<OneWayBookingViewModel> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.w500,),
                 ),
                 const Gap(8),
                 TextFormField(
@@ -56,7 +58,7 @@ class OneWayBookingView extends StackedView<OneWayBookingViewModel> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.w500,),
                 ),
                 const Gap(8),
                 TextFormField(

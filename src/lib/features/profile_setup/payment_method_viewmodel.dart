@@ -2,9 +2,9 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class PaymentMethodViewModel extends BaseViewModel {
-  final NavigationService _navigationService;
 
   PaymentMethodViewModel(this._navigationService);
+  final NavigationService _navigationService;
 
   bool _termsAccepted = false;
   bool get termsAccepted => _termsAccepted;
@@ -71,7 +71,7 @@ class PaymentMethodViewModel extends BaseViewModel {
 
     try {
       // Save payment method logic here
-      await Future.delayed(Duration(seconds: 1)); // Simulated API call
+      await Future.delayed(const Duration(seconds: 1)); // Simulated API call
       _navigationService.navigateToNotificationPermissionView();
     } catch (e) {
       setError(e.toString());

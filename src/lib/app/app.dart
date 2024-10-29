@@ -29,7 +29,6 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: PackageSelectionView),
     MaterialRoute(page: PaymentMethodView),
     MaterialRoute(page: NotificationPermissionView),
-    MaterialRoute(page: HomeView),
     MaterialRoute(page: OneWayBookingView),
     MaterialRoute(page: MultiStopBookingView),
     MaterialRoute(page: HourlyBookingView),

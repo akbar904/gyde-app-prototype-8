@@ -5,11 +5,11 @@ import 'package:gyde_app/ui/common/app_colors.dart';
 import 'package:gyde_app/ui/common/ui_helpers.dart';
 
 class TermsView extends StackedView<TermsViewModel> {
-  const TermsView({Key? key}) : super(key: key);
+  const TermsView({super.key});
 
   @override
   Widget builder(
-      BuildContext context, TermsViewModel viewModel, Widget? child) {
+      BuildContext context, TermsViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -19,19 +19,19 @@ class TermsView extends StackedView<TermsViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpaceLarge,
-              Text(
+              const Text(
                 'Terms & Conditions',
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.white,),
               ),
               verticalSpaceMedium,
               Expanded(
                 child: SingleChildScrollView(
                   child: Text(
                     viewModel.termsText,
-                    style: TextStyle(color: Colors.white70, height: 1.5),
+                    style: const TextStyle(color: Colors.white70, height: 1.5),
                   ),
                 ),
               ),
@@ -41,9 +41,9 @@ class TermsView extends StackedView<TermsViewModel> {
                   Checkbox(
                     value: viewModel.termsAccepted,
                     onChanged: viewModel.setTermsAccepted,
-                    fillColor: MaterialStateProperty.all(AppColors.primary),
+                    fillColor: WidgetStateProperty.all(AppColors.primary),
                   ),
-                  Text(
+                  const Text(
                     'I accept the terms and conditions',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -62,7 +62,7 @@ class TermsView extends StackedView<TermsViewModel> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Continue',
                     style: TextStyle(
                       fontSize: 16,

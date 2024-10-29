@@ -14,7 +14,7 @@ class OneWayBookingViewModel extends BaseViewModel {
   DateTime? pickupTime;
   String selectedVehicle = '';
   String selectedChauffeur = '';
-  double price = 0.0;
+  double price = 0;
   bool isPickupLocationValid = false;
   bool isDropoffLocationValid = false;
 
@@ -64,7 +64,7 @@ class OneWayBookingViewModel extends BaseViewModel {
     if (!canProceed) {
       await _dialogService.showDialog(
           title: 'Incomplete Booking',
-          description: 'Please fill in all required fields');
+          description: 'Please fill in all required fields',);
       return;
     }
 
@@ -78,16 +78,16 @@ class OneWayBookingViewModel extends BaseViewModel {
           pickupTime: pickupTime!,
           vehicle: selectedVehicle,
           chauffeur: selectedChauffeur,
-          price: price);
+          price: price,);
 
       // Save booking
-      await Future.delayed(Duration(seconds: 2)); // Simulate API call
+      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       await _navigationService.navigateToHomeView();
     } catch (e) {
       await _dialogService.showDialog(
           title: 'Error',
-          description: 'Failed to create booking. Please try again.');
+          description: 'Failed to create booking. Please try again.',);
     } finally {
       setBusy(false);
     }

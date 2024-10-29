@@ -5,12 +5,12 @@ import 'package:gyde_app/ui/common/ui_helpers.dart';
 import 'welcome_viewmodel.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+  const WelcomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<WelcomeViewModel>.reactive(
-      viewModelBuilder: () => WelcomeViewModel(),
+      viewModelBuilder: WelcomeViewModel.new,
       builder: (context, model, child) => Scaffold(
         backgroundColor: AppColors.darkBackground,
         body: SafeArea(
@@ -25,7 +25,7 @@ class WelcomeView extends StatelessWidget {
                   height: 200,
                 ),
                 verticalSpaceLarge,
-                Text(
+                const Text(
                   'Experience luxury travel with ease. Register and manage your bookings seamlessly.',
                   style: TextStyle(
                     color: Colors.white,
@@ -37,16 +37,16 @@ class WelcomeView extends StatelessWidget {
                 verticalSpaceLarge,
                 ElevatedButton(
                   onPressed: model.navigateToAuth,
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: AppColors.primary,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
+                  ),
+                  child: const Text(
+                    'Get Started',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],

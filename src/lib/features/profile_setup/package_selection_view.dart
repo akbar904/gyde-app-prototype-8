@@ -5,21 +5,23 @@ import 'package:gyde_app/ui/common/ui_helpers.dart';
 import 'package:gyde_app/features/profile_setup/package_selection_viewmodel.dart';
 
 class PackageSelectionView extends StackedView<PackageSelectionViewModel> {
+  const PackageSelectionView({super.key});
+
   @override
   Widget builder(BuildContext context, PackageSelectionViewModel viewModel,
-      Widget? child) {
+      Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Select Your Package',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.white, fontWeight: FontWeight.bold,),
               ),
               verticalSpaceMedium,
               Text(
@@ -36,11 +38,11 @@ class PackageSelectionView extends StackedView<PackageSelectionViewModel> {
                     _PackageCard(
                       title: 'Corporate Elite Package',
                       price: 5000,
-                      features: [
+                      features: const [
                         '24/7 Priority Service',
                         'Dedicated Account Manager',
                         'Corporate Fleet Access',
-                        'Priority Booking'
+                        'Priority Booking',
                       ],
                       onTap: () => viewModel.selectPackage('corporate_elite'),
                       isSelected:
@@ -50,11 +52,11 @@ class PackageSelectionView extends StackedView<PackageSelectionViewModel> {
                     _PackageCard(
                       title: 'Executive Package',
                       price: 1000,
-                      features: [
+                      features: const [
                         'Professional Chauffeurs',
                         'Luxury Vehicles',
                         '24/7 Support',
-                        'Flexible Booking'
+                        'Flexible Booking',
                       ],
                       onTap: () => viewModel.selectPackage('executive'),
                       isSelected: viewModel.selectedPackage == 'executive',
@@ -63,11 +65,11 @@ class PackageSelectionView extends StackedView<PackageSelectionViewModel> {
                     _PackageCard(
                       title: 'VIP Package',
                       price: 2500,
-                      features: [
+                      features: const [
                         'Premium Vehicle Selection',
                         'VIP Airport Service',
                         'Concierge Support',
-                        'Advanced Booking'
+                        'Advanced Booking',
                       ],
                       onTap: () => viewModel.selectPackage('vip'),
                       isSelected: viewModel.selectedPackage == 'vip',
@@ -102,11 +104,6 @@ class PackageSelectionView extends StackedView<PackageSelectionViewModel> {
 }
 
 class _PackageCard extends StatelessWidget {
-  final String title;
-  final int price;
-  final List<String> features;
-  final VoidCallback onTap;
-  final bool isSelected;
 
   const _PackageCard({
     required this.title,
@@ -115,6 +112,11 @@ class _PackageCard extends StatelessWidget {
     required this.onTap,
     required this.isSelected,
   });
+  final String title;
+  final int price;
+  final List<String> features;
+  final VoidCallback onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +148,7 @@ class _PackageCard extends StatelessWidget {
             Text(
               '\$$price/month',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.primary, fontWeight: FontWeight.bold),
+                  color: AppColors.primary, fontWeight: FontWeight.bold,),
             ),
             verticalSpaceMedium,
             ...features.map((feature) => Padding(
@@ -168,7 +170,7 @@ class _PackageCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                )),
+                ),),
           ],
         ),
       ),

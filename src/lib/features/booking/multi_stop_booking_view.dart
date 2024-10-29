@@ -7,21 +7,23 @@ import 'package:gap/gap.dart';
 import 'multi_stop_booking_viewmodel.dart';
 
 class MultiStopBookingView extends StackedView<MultiStopBookingViewModel> {
+  const MultiStopBookingView({super.key});
+
   @override
   Widget builder(BuildContext context, MultiStopBookingViewModel viewModel,
-      Widget? child) {
+      Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Multi-Stop Booking',
           style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600,),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -40,32 +42,32 @@ class MultiStopBookingView extends StackedView<MultiStopBookingViewModel> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: AppColors.darkSecondary,
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
+                      const BorderRadius.vertical(top: Radius.circular(20)),),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                     'Add Stops',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w600,),
                   ),
-                  Gap(16),
+                  const Gap(16),
                   ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: viewModel.stops.length + 1,
                       itemBuilder: (context, index) {
                         if (index == viewModel.stops.length) {
                           return TextButton(
                             onPressed: viewModel.addStop,
-                            child: Text(
+                            child: const Text(
                               '+ Add Another Stop',
                               style: TextStyle(color: Colors.blue),
                             ),
@@ -73,29 +75,29 @@ class MultiStopBookingView extends StackedView<MultiStopBookingViewModel> {
                         }
                         return ListTile(
                           leading: CircleAvatar(
-                            child: Text('${index + 1}'),
                             backgroundColor: Colors.blue,
+                            child: Text('${index + 1}'),
                           ),
                           title: Text(
                             viewModel.stops[index],
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           trailing: IconButton(
-                            icon: Icon(Icons.remove_circle_outline,
-                                color: Colors.red),
+                            icon: const Icon(Icons.remove_circle_outline,
+                                color: Colors.red,),
                             onPressed: () => viewModel.removeStop(index),
                           ),
                         );
-                      }),
-                  Gap(16),
+                      },),
+                  const Gap(16),
                   if (viewModel.stops.length >= 2)
                     ElevatedButton(
                       onPressed: viewModel.proceedToBooking,
-                      child: Text('Continue to Booking'),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        minimumSize: Size(double.infinity, 50),
+                        backgroundColor: Colors.blue,
+                        minimumSize: const Size(double.infinity, 50),
                       ),
+                      child: const Text('Continue to Booking'),
                     ),
                 ],
               ),

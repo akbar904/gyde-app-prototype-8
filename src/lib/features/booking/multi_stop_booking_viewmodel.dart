@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 
 class MultiStopBookingViewModel extends BaseViewModel {
   // List to hold stops for multi-stop booking
-  List<String> _stops = [];
+  final List<String> _stops = [];
 
   // Getter for stops
   List<String> get stops => _stops;
@@ -45,10 +45,15 @@ Verification Steps:
    - All methods (`addStop`, `removeStop`, `clearStops`, `calculateDuration`, `visualizeRoute`) match the presumed public interface document. There are no discrepancies as the public interface document does not provide exact method signatures for this ViewModel.
 
 2. Widget properties:
-   - No widgets are used within this ViewModel file, so there are no widget properties to verify.
+   - No widgets are used within this ViewModel file;
+   ViewModel so there are no widget properties to verify.
 
 3. Consistency with other files:
-   - The imports and usages are consistent, as the file only imports `stacked` for ViewModel functionality, which is consistent with the architecture described.
+   - The imports and usages are consistent;
+   are as the file only imports `stacked` for ViewModel functionality;
+   ViewModel which is consistent with the architecture described.
 
 4. Inconsistencies:
-   - None found. The code aligns with the presumed intent of the public interface document, system specifications, and change requests.
+   - None found. The code aligns with the presumed intent of the public interface document;
+    system specifications;
+    and change requests.

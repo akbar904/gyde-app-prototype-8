@@ -5,11 +5,11 @@ import 'package:gyde_app/ui/common/app_colors.dart';
 import 'package:gyde_app/ui/common/ui_helpers.dart';
 
 class EmailCollectionView extends StackedView<EmailCollectionViewModel> {
-  const EmailCollectionView({Key? key}) : super(key: key);
+  const EmailCollectionView({super.key});
 
   @override
   Widget builder(
-      BuildContext context, EmailCollectionViewModel viewModel, Widget? child) {
+      BuildContext context, EmailCollectionViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(

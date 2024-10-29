@@ -5,13 +5,15 @@ import 'package:gyde_app/ui/common/app_colors.dart';
 import 'package:gyde_app/ui/common/ui_helpers.dart';
 
 class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
+  const HourlyBookingView({super.key});
+
   @override
   Widget builder(
-      BuildContext context, HourlyBookingViewModel viewModel, Widget? child) {
+      BuildContext context, HourlyBookingViewModel viewModel, Widget? child,) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text('Hourly Booking'),
+        title: const Text('Hourly Booking'),
         backgroundColor: AppColors.primary,
         elevation: 0,
       ),
@@ -22,7 +24,7 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpaceMedium,
-              Text(
+              const Text(
                 'Select Duration',
                 style: TextStyle(
                   fontSize: 24,
@@ -31,7 +33,7 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
                 ),
               ),
               verticalSpaceSmall,
-              Text(
+              const Text(
                 'Choose how many hours you need the chauffeur service',
                 style: TextStyle(
                   color: Colors.grey,
@@ -39,7 +41,7 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
               ),
               verticalSpaceMedium,
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: AppColors.cardBackground,
                   borderRadius: BorderRadius.circular(12),
@@ -49,22 +51,22 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Hours',
                           style: TextStyle(color: Colors.white),
                         ),
                         Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.remove, color: Colors.white),
+                              icon: const Icon(Icons.remove, color: Colors.white),
                               onPressed: viewModel.decrementHours,
                             ),
                             Text(
                               '${viewModel.hours}',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                             IconButton(
-                              icon: Icon(Icons.add, color: Colors.white),
+                              icon: const Icon(Icons.add, color: Colors.white),
                               onPressed: viewModel.incrementHours,
                             ),
                           ],
@@ -74,7 +76,7 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
                     verticalSpaceMedium,
                     Text(
                       'Total: \$${viewModel.totalPrice}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -83,17 +85,17 @@ class HourlyBookingView extends StackedView<HourlyBookingViewModel> {
                   ],
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
                 onPressed: viewModel.proceedToBooking,
                 style: ElevatedButton.styleFrom(
-                  primary: AppColors.primary,
-                  minimumSize: Size(double.infinity, 50),
+                  backgroundColor: AppColors.primary,
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text('Proceed to Booking'),
+                child: const Text('Proceed to Booking'),
               ),
               verticalSpaceMedium,
             ],

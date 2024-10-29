@@ -9,16 +9,16 @@ class HomeViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
 
   // Profile info
-  String currentLocation = "New York, USA";
-  String profileImageUrl = ""; // To be implemented
+  String currentLocation = 'New York, USA';
+  String profileImageUrl = ''; // To be implemented
 
   // Chauffeur info
-  String chauffeurName = "Edward";
+  String chauffeurName = 'Edward';
   double chauffeurRating = 4.8;
-  String chauffeurStatus = "Online";
-  String vehicleModel = "BMW 7 Series";
-  String hourlyRate = "\$65/hour";
-  String availability = "Mon - Sat, 09:00 am - 05:00 pm";
+  String chauffeurStatus = 'Online';
+  String vehicleModel = 'BMW 7 Series';
+  String hourlyRate = r'$65/hour';
+  String availability = 'Mon - Sat, 09:00 am - 05:00 pm';
 
   // Ride management
   int selectedRideTab = 0; // 0: Upcoming, 1: Past, 2: Canceled
