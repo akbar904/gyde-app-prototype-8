@@ -19,6 +19,16 @@ void main() async {
     setupDialogUi();
     setupBottomSheetUi();
 
+    // Set system UI overlay style for dark theme
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+
     runApp(const AppView());
   }, (exception, stackTrace) async {
     // Handle exceptions here
