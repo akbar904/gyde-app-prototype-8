@@ -8,28 +8,40 @@ class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  // Profile info
+  String currentLocation = "New York, USA";
+  String profileImageUrl = ""; // To be implemented
 
-  int _counter = 0;
+  // Chauffeur info
+  String chauffeurName = "Edward";
+  double chauffeurRating = 4.8;
+  String chauffeurStatus = "Online";
+  String vehicleModel = "BMW 7 Series";
+  String hourlyRate = "\$65/hour";
+  String availability = "Mon - Sat, 09:00 am - 05:00 pm";
 
-  void incrementCounter() {
-    _counter++;
+  // Ride management
+  int selectedRideTab = 0; // 0: Upcoming, 1: Past, 2: Canceled
+  List<dynamic> rides = []; // To be populated with ride data
+
+  void switchRideTab(int index) {
+    selectedRideTab = index;
     rebuildUi();
   }
 
-  void showDialog() {
+  void showLocationDialog() {
     _dialogService.showCustomDialog(
       variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
+      title: 'Location',
+      description: 'Change your current location',
     );
   }
 
-  void showBottomSheet() {
+  void showProfileSheet() {
     _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
+      title: 'Profile',
+      description: 'View and edit your profile',
     );
   }
 }
