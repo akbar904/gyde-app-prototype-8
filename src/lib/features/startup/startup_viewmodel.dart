@@ -1,20 +1,35 @@
-import 'package:gyde_app/app/app.locator.dart';
-import 'package:gyde_app/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:my_app/app/app.locator.dart';
+import 'package:my_app/app/app.router.dart';
 
-class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+/// ViewModel for the SplashView, handles initialization logic and state management.
+class SplashViewModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>();
 
-  // Place anything here that needs to happen before we get into the application
-  // ignore: strict_raw_type
-  Future runStartupLogic() async {
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(seconds: 1));
+  /// Initializes the splash screen and handles navigation to the welcome view.
+  Future<void> initialize() async {
+    setBusy(true);
+    try {
+      // Simulate a loading delay, e.g., fetching initial configuration
+      await Future.delayed(Duration(seconds: 3));
+      _navigateToWelcomeView();
+    } catch (e) {
+      // Handle any initialization errors
+      setError(e);
+    } finally {
+      setBusy(false);
+    }
+  }
 
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
+  /// Navigates to the WelcomeView after initialization.
+  void _navigateToWelcomeView() {
+    _navigationService.replaceWith(Routes.welcomeView);
+  }
 
-    await _navigationService.replaceWithHomeView();
+  @override
+  void dispose() {
+    // Dispose any resources if needed
+    super.dispose();
   }
 }

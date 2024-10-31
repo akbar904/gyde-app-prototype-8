@@ -1,7 +1,7 @@
 {
   "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection.",
+  "project_description": "A luxury chauffeur service Flutter app using the Stacked architecture, featuring authentication, profile setup, booking flows, and a dark theme UI.",
+  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. Each view has a corresponding ViewModel for handling business logic and state.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -12,17 +12,41 @@
         "app.router.dart": {}
       },
       "features": {
-        "app": {
-          "app_view.dart": {},
-          "app_viewmodel.dart": {}
+        "authentication": {
+          "splash_view.dart": {},
+          "splash_viewmodel.dart": {},
+          "welcome_view.dart": {},
+          "welcome_viewmodel.dart": {},
+          "phone_verification_view.dart": {},
+          "phone_verification_viewmodel.dart": {},
+          "email_collection_view.dart": {},
+          "email_collection_viewmodel.dart": {},
+          "terms_view.dart": {},
+          "terms_viewmodel.dart": {}
+        },
+        "profile_setup": {
+          "mode_selection_view.dart": {},
+          "mode_selection_viewmodel.dart": {},
+          "profile_information_view.dart": {},
+          "profile_information_viewmodel.dart": {},
+          "package_selection_view.dart": {},
+          "package_selection_viewmodel.dart": {},
+          "payment_method_view.dart": {},
+          "payment_method_viewmodel.dart": {},
+          "notification_permission_view.dart": {},
+          "notification_permission_viewmodel.dart": {}
         },
         "home": {
           "home_view.dart": {},
           "home_viewmodel.dart": {}
         },
-        "startup": {
-          "startup_view.dart": {},
-          "startup_viewmodel.dart": {}
+        "booking": {
+          "one_way_booking_view.dart": {},
+          "one_way_booking_viewmodel.dart": {},
+          "multi_stop_booking_view.dart": {},
+          "multi_stop_booking_viewmodel.dart": {},
+          "hourly_booking_view.dart": {},
+          "hourly_booking_viewmodel.dart": {}
         }
       },
       "ui": {
@@ -49,7 +73,7 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes (HomeView, StartupView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for authentication, profile setup, home, and booking flows. The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
@@ -57,14 +81,14 @@
         "package:stacked_services/stacked_services.dart",
         "package:my_app/ui/bottom_sheets/notice/notice_sheet.dart",
         "package:my_app/ui/dialogs/info_alert/info_alert_dialog.dart",
-        "package:my_app/features/home/home_view.dart",
-        "package:my_app/features/startup/startup_view.dart"
+        "package:my_app/features/authentication/splash_view.dart",
+        "package:my_app/features/home/home_view.dart"
       ]
     },
     {
-      "name": "lib/features/app/app_view.dart",
-      "description": "Defines the root widget of the application",
-      "class_diagram": "@startuml\nclass AppView\nclass _App\n@enduml",
+      "name": "lib/features/authentication/splash_view.dart",
+      "description": "Splash screen showing luxury car interior and chauffeur.",
+      "class_diagram": "@startuml\nclass SplashView\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart",
@@ -72,35 +96,40 @@
       ]
     },
     {
-      "name": "lib/features/home/home_view.dart",
-      "description": "The main home view of the application.",
-      "class_diagram": "@startuml\nclass HomeView\n@enduml",
-      "methods": [],
+      "name": "lib/features/authentication/splash_viewmodel.dart",
+      "description": "ViewModel for the SplashView, handles initialization logic.",
+      "class_diagram": "@startuml\nclass SplashViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "initialize",
+          "description": "Initializes the splash screen and navigates to the welcome view.",
+          "parameters": [],
+          "return_type": "Future"
+        }
+      ],
       "dependencies": [
         "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
+        "package:stacked_services/stacked_services.dart"
       ]
     },
     {
-      "name": "lib/features/home/home_viewmodel.dart",
-      "description": "ViewModel for the HomeView, manages the state and business logic.",
-      "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
+      "name": "lib/features/authentication/welcome_view.dart",
+      "description": "Welcome page with 'Get Started' button and introduction text.",
+      "class_diagram": "@startuml\nclass WelcomeView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/authentication/welcome_viewmodel.dart",
+      "description": "ViewModel for the WelcomeView, manages navigation to authentication options.",
+      "class_diagram": "@startuml\nclass WelcomeViewModel\n@enduml",
       "methods": [
         {
-          "name": "incrementCounter",
-          "description": "Increments the counter value",
-          "parameters": [],
-          "return_type": "void"
-        },
-        {
-          "name": "showDialog",
-          "description": "Shows a custom dialog",
-          "parameters": [],
-          "return_type": "void"
-        },
-        {
-          "name": "showBottomSheet",
-          "description": "Shows a custom bottom sheet",
+          "name": "navigateToAuthOptions",
+          "description": "Navigates to the authentication options view.",
           "parameters": [],
           "return_type": "void"
         }
@@ -111,9 +140,9 @@
       ]
     },
     {
-      "name": "lib/features/startup/startup_view.dart",
-      "description": "The startup view shown when the app is first launched.",
-      "class_diagram": "@startuml\nclass StartupView\n@enduml",
+      "name": "lib/features/home/home_view.dart",
+      "description": "The main home view of the application, displaying service categories and featured chauffeur.",
+      "class_diagram": "@startuml\nclass HomeView\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart",
@@ -121,13 +150,13 @@
       ]
     },
     {
-      "name": "lib/features/startup/startup_viewmodel.dart",
-      "description": "ViewModel for the StartupView, handles initialization logic.",
-      "class_diagram": "@startuml\nclass StartupViewModel\n@enduml",
+      "name": "lib/features/home/home_viewmodel.dart",
+      "description": "ViewModel for the HomeView, manages the state and business logic for the home screen.",
+      "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
       "methods": [
         {
-          "name": "runStartupLogic",
-          "description": "Runs the startup logic and navigates to the home view",
+          "name": "loadHomeData",
+          "description": "Loads data for the home view, including service categories and featured chauffeur.",
           "parameters": [],
           "return_type": "Future"
         }
@@ -144,7 +173,7 @@
       "methods": [
         {
           "name": "main",
-          "description": "The main function that runs the app",
+          "description": "The main function that runs the app.",
           "parameters": [],
           "return_type": "void"
         }
@@ -155,7 +184,7 @@
         "package:my_app/app/app.bottomsheets.dart",
         "package:my_app/app/app.dialogs.dart",
         "package:my_app/app/app.locator.dart",
-        "package:my_app/features/app/app_view.dart"
+        "package:my_app/features/authentication/splash_view.dart"
       ]
     }
   ],
@@ -181,7 +210,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant StartupView\nparticipant StartupViewModel\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> StartupView: Initialize\nStartupView -> StartupViewModel: Run startup logic\nStartupViewModel -> HomeView: Navigate on completion\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\nHomeViewModel -> HomeView: Update UI\nHomeViewModel -> DialogService: Show dialog\nHomeViewModel -> BottomSheetService: Show bottom sheet\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., HomeViewModel, StartupViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the StartupView. After completing initialization logic, it navigates to the HomeView. Navigation between views is handled by the Stacked Router defined in app.router.dart."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant SplashView\nparticipant WelcomeView\nparticipant AuthOptionsView\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> SplashView: Initialize\nSplashView -> WelcomeView: Navigate\nUser -> WelcomeView: Get Started\nWelcomeView -> AuthOptionsView: Show options\nUser -> AuthOptionsView: Authenticate\nAuthOptionsView -> HomeView: Navigate on success\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\n@enduml",
+  "state_management_flow": "State is managed using the Stacked architecture. ViewModels handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
+  "navigation_flow": "The application starts with main.dart, which sets up the app and runs SplashView. SplashView initializes the app and navigates to the WelcomeView. After user interaction, it navigates through authentication and profile setup flows, eventually reaching the HomeView. Navigation between views is handled by the Stacked Router defined in app.router.dart."
 }

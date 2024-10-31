@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
@@ -15,61 +14,13 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+        child: Column(
+          children: [
+            HeaderSection(),
+            ServiceCategories(),
+            FeaturedChauffeurSection(),
+            RideManagementSection(),
+          ],
         ),
       ),
     );
@@ -80,4 +31,157 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+
+  @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    viewModel.loadHomeData();
+    super.onViewModelReady(viewModel);
+  }
+}
+
+class HeaderSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'New York, USA',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Icon(Icons.person),
+        ],
+      ),
+    );
+  }
+}
+
+class ServiceCategories extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          CategoryCard(title: "Airport Trips"),
+          CategoryCard(title: "Eco Friendly"),
+          CategoryCard(title: "Shared Rides"),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryCard extends StatelessWidget {
+  final String title;
+
+  const CategoryCard({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(title),
+      ),
+    );
+  }
+}
+
+class FeaturedChauffeurSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Your Chauffeur (1/1)',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          ChauffeurProfile(),
+        ],
+      ),
+    );
+  }
+}
+
+class ChauffeurProfile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Image.asset('assets/images/edward.jpg', width: 50, height: 50),
+            const SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Edward'),
+                Text('Rating: 4.8'),
+                Text('Status: Online'),
+                Text('Vehicle: BMW 7 Series'),
+                Text('Price: \$65/hour'),
+                Text('Availability: Mon - Sat, 09:00 am - 05:00 pm'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RideManagementSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Manage Your Rides'),
+            SegmentedControl(),
+            Expanded(child: RideList()),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SegmentedControl extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text('Upcoming'),
+          Text('Past'),
+          Text('Canceled'),
+        ],
+      ),
+    );
+  }
+}
+
+class RideList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        // Empty states or ride cards will be implemented here.
+        Center(child: Text('No rides available')),
+      ],
+    );
+  }
 }
