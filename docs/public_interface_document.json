@@ -1,7 +1,7 @@
 {
-  "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection.",
+  "package_name": "com.com.walturn.aorteq_app",
+  "project_description": "A Flutter project transformed into Aorteq, a medical study companion app using the MVVM architecture, featuring authentication, exam selection, study planning, and personalized study plan generation.",
+  "architecture_overview": "The application follows the MVVM architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection. The app includes comprehensive authentication, user data management, and study plan generation.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -12,35 +12,33 @@
         "app.router.dart": {}
       },
       "features": {
-        "app": {
-          "app_view.dart": {},
-          "app_viewmodel.dart": {}
+        "authentication": {
+          "welcome_view.dart": {},
+          "welcome_viewmodel.dart": {},
+          "email_auth_view.dart": {},
+          "email_auth_viewmodel.dart": {},
+          "user_info_view.dart": {},
+          "user_info_viewmodel.dart": {}
         },
-        "home": {
-          "home_view.dart": {},
-          "home_viewmodel.dart": {}
+        "exam_selection": {
+          "exam_selection_view.dart": {},
+          "exam_selection_viewmodel.dart": {},
+          "topic_selection_view.dart": {},
+          "topic_selection_viewmodel.dart": {},
+          "study_time_view.dart": {},
+          "study_time_viewmodel.dart": {},
+          "exam_date_view.dart": {},
+          "exam_date_viewmodel.dart": {}
         },
-        "startup": {
-          "startup_view.dart": {},
-          "startup_viewmodel.dart": {}
+        "study_plan": {
+          "study_plan_view.dart": {},
+          "study_plan_viewmodel.dart": {}
         }
       },
       "ui": {
-        "bottom_sheets": {
-          "notice": {
-            "notice_sheet.dart": {},
-            "notice_sheet_model.dart": {}
-          }
-        },
         "common": {
           "app_colors.dart": {},
           "ui_helpers.dart": {}
-        },
-        "dialogs": {
-          "info_alert": {
-            "info_alert_dialog.dart": {},
-            "info_alert_dialog_model.dart": {}
-          }
         }
       },
       "main.dart": {}
@@ -49,22 +47,21 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes (HomeView, StartupView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for authentication and study planning flows, services for navigation and user data management.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked_annotations.dart",
         "package:stacked_services/stacked_services.dart",
-        "package:my_app/ui/bottom_sheets/notice/notice_sheet.dart",
-        "package:my_app/ui/dialogs/info_alert/info_alert_dialog.dart",
-        "package:my_app/features/home/home_view.dart",
-        "package:my_app/features/startup/startup_view.dart"
+        "package:my_app/features/authentication/welcome_view.dart",
+        "package:my_app/features/exam_selection/exam_selection_view.dart",
+        "package:my_app/features/study_plan/study_plan_view.dart"
       ]
     },
     {
-      "name": "lib/features/app/app_view.dart",
-      "description": "Defines the root widget of the application",
-      "class_diagram": "@startuml\nclass AppView\nclass _App\n@enduml",
+      "name": "lib/features/authentication/welcome_view.dart",
+      "description": "The welcome screen for the authentication flow, providing options for Google sign-in and email login.",
+      "class_diagram": "@startuml\nclass WelcomeView\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart",
@@ -72,35 +69,19 @@
       ]
     },
     {
-      "name": "lib/features/home/home_view.dart",
-      "description": "The main home view of the application.",
-      "class_diagram": "@startuml\nclass HomeView\n@enduml",
-      "methods": [],
-      "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
-      ]
-    },
-    {
-      "name": "lib/features/home/home_viewmodel.dart",
-      "description": "ViewModel for the HomeView, manages the state and business logic.",
-      "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
+      "name": "lib/features/authentication/welcome_viewmodel.dart",
+      "description": "ViewModel for the WelcomeView, managing authentication logic and navigation.",
+      "class_diagram": "@startuml\nclass WelcomeViewModel\n@enduml",
       "methods": [
         {
-          "name": "incrementCounter",
-          "description": "Increments the counter value",
+          "name": "signInWithGoogle",
+          "description": "Handles Google sign-in process",
           "parameters": [],
-          "return_type": "void"
+          "return_type": "Future<void>"
         },
         {
-          "name": "showDialog",
-          "description": "Shows a custom dialog",
-          "parameters": [],
-          "return_type": "void"
-        },
-        {
-          "name": "showBottomSheet",
-          "description": "Shows a custom bottom sheet",
+          "name": "navigateToEmailAuth",
+          "description": "Navigates to the email authentication screen",
           "parameters": [],
           "return_type": "void"
         }
@@ -111,25 +92,206 @@
       ]
     },
     {
-      "name": "lib/features/startup/startup_view.dart",
-      "description": "The startup view shown when the app is first launched.",
-      "class_diagram": "@startuml\nclass StartupView\n@enduml",
+      "name": "lib/features/authentication/email_auth_view.dart",
+      "description": "Screen for email authentication, including email input and verification.",
+      "class_diagram": "@startuml\nclass EmailAuthView\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
+        "package:stacked_services/stacked_services.dart"
       ]
     },
     {
-      "name": "lib/features/startup/startup_viewmodel.dart",
-      "description": "ViewModel for the StartupView, handles initialization logic.",
-      "class_diagram": "@startuml\nclass StartupViewModel\n@enduml",
+      "name": "lib/features/authentication/email_auth_viewmodel.dart",
+      "description": "ViewModel for the EmailAuthView, handling email validation and verification logic.",
+      "class_diagram": "@startuml\nclass EmailAuthViewModel\n@enduml",
       "methods": [
         {
-          "name": "runStartupLogic",
-          "description": "Runs the startup logic and navigates to the home view",
+          "name": "validateEmail",
+          "description": "Validates the entered email address",
+          "parameters": [
+            "String email"
+          ],
+          "return_type": "bool"
+        },
+        {
+          "name": "sendVerificationCode",
+          "description": "Sends a verification code to the entered email",
           "parameters": [],
-          "return_type": "Future"
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/authentication/user_info_view.dart",
+      "description": "Screen for collecting user information such as name and email.",
+      "class_diagram": "@startuml\nclass UserInfoView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/authentication/user_info_viewmodel.dart",
+      "description": "ViewModel for the UserInfoView, managing user data collection and validation.",
+      "class_diagram": "@startuml\nclass UserInfoViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "saveUserInfo",
+          "description": "Saves the collected user information",
+          "parameters": [
+            "String name",
+            "String email"
+          ],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/exam_selection_view.dart",
+      "description": "Screen for selecting the targeted exam from a list.",
+      "class_diagram": "@startuml\nclass ExamSelectionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/exam_selection_viewmodel.dart",
+      "description": "ViewModel for the ExamSelectionView, managing exam selection logic.",
+      "class_diagram": "@startuml\nclass ExamSelectionViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "selectExam",
+          "description": "Handles the selection of an exam",
+          "parameters": [
+            "String exam"
+          ],
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/topic_selection_view.dart",
+      "description": "Screen for selecting topics to focus on during study.",
+      "class_diagram": "@startuml\nclass TopicSelectionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/topic_selection_viewmodel.dart",
+      "description": "ViewModel for the TopicSelectionView, managing topic selection logic.",
+      "class_diagram": "@startuml\nclass TopicSelectionViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "selectTopics",
+          "description": "Handles the selection of study topics",
+          "parameters": [
+            "List<String> topics"
+          ],
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/study_time_view.dart",
+      "description": "Screen for allocating study time per week.",
+      "class_diagram": "@startuml\nclass StudyTimeView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/study_time_viewmodel.dart",
+      "description": "ViewModel for the StudyTimeView, managing study time allocation logic.",
+      "class_diagram": "@startuml\nclass StudyTimeViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "allocateStudyTime",
+          "description": "Handles the allocation of study time",
+          "parameters": [
+            "String timeOption"
+          ],
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/exam_date_view.dart",
+      "description": "Screen for selecting the exam date using a calendar interface.",
+      "class_diagram": "@startuml\nclass ExamDateView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/exam_selection/exam_date_viewmodel.dart",
+      "description": "ViewModel for the ExamDateView, managing exam date selection logic.",
+      "class_diagram": "@startuml\nclass ExamDateViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "selectExamDate",
+          "description": "Handles the selection of the exam date",
+          "parameters": [
+            "DateTime date"
+          ],
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/study_plan/study_plan_view.dart",
+      "description": "Screen displaying the generated personalized study plan.",
+      "class_diagram": "@startuml\nclass StudyPlanView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/study_plan/study_plan_viewmodel.dart",
+      "description": "ViewModel for the StudyPlanView, managing study plan generation and display logic.",
+      "class_diagram": "@startuml\nclass StudyPlanViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "generateStudyPlan",
+          "description": "Generates a personalized study plan based on user inputs",
+          "parameters": [],
+          "return_type": "Future<void>"
         }
       ],
       "dependencies": [
@@ -155,7 +317,7 @@
         "package:my_app/app/app.bottomsheets.dart",
         "package:my_app/app/app.dialogs.dart",
         "package:my_app/app/app.locator.dart",
-        "package:my_app/features/app/app_view.dart"
+        "package:my_app/features/authentication/welcome_view.dart"
       ]
     }
   ],
@@ -181,7 +343,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant StartupView\nparticipant StartupViewModel\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> StartupView: Initialize\nStartupView -> StartupViewModel: Run startup logic\nStartupViewModel -> HomeView: Navigate on completion\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\nHomeViewModel -> HomeView: Update UI\nHomeViewModel -> DialogService: Show dialog\nHomeViewModel -> BottomSheetService: Show bottom sheet\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., HomeViewModel, StartupViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the StartupView. After completing initialization logic, it navigates to the HomeView. Navigation between views is handled by the Stacked Router defined in app.router.dart."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant WelcomeView\nparticipant WelcomeViewModel\nparticipant EmailAuthView\nparticipant EmailAuthViewModel\nparticipant UserInfoView\nparticipant UserInfoViewModel\nparticipant ExamSelectionView\nparticipant ExamSelectionViewModel\nparticipant TopicSelectionView\nparticipant TopicSelectionViewModel\nparticipant StudyTimeView\nparticipant StudyTimeViewModel\nparticipant ExamDateView\nparticipant ExamDateViewModel\nparticipant StudyPlanView\nparticipant StudyPlanViewModel\n\nUser -> main: Launch app\nmain -> WelcomeView: Create and run\nWelcomeView -> WelcomeViewModel: Handle authentication\nUser -> WelcomeView: Choose auth method\nWelcomeViewModel -> EmailAuthView: Navigate if email\nEmailAuthView -> EmailAuthViewModel: Validate email\nEmailAuthViewModel -> UserInfoView: Navigate on success\nUserInfoView -> UserInfoViewModel: Collect user info\nUserInfoViewModel -> ExamSelectionView: Navigate on completion\nExamSelectionView -> ExamSelectionViewModel: Select exam\nExamSelectionViewModel -> TopicSelectionView: Navigate\nTopicSelectionView -> TopicSelectionViewModel: Select topics\nTopicSelectionViewModel -> StudyTimeView: Navigate\nStudyTimeView -> StudyTimeViewModel: Allocate time\nStudyTimeViewModel -> ExamDateView: Navigate\nExamDateView -> ExamDateViewModel: Select date\nExamDateViewModel -> StudyPlanView: Generate plan\nStudyPlanView -> StudyPlanViewModel: Display plan\n@enduml",
+  "state_management_flow": "State is managed using the MVVM architecture. ViewModels handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views. User progress and selections are tracked across the app.",
+  "navigation_flow": "The application starts with main.dart, which sets up the app and runs WelcomeView. WelcomeView initializes the authentication flow. Upon successful authentication, the user navigates through exam selection and study planning screens. Navigation between views is handled by the Stacked Router defined in app.router.dart."
 }
