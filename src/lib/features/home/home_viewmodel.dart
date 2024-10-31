@@ -1,35 +1,81 @@
-import 'package:gyde_app/app/app.bottomsheets.dart';
-import 'package:gyde_app/app/app.dialogs.dart';
-import 'package:gyde_app/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:my_app/app/app.locator.dart';
+import 'package:my_app/app/app.router.dart';
+import 'package:my_app/features/study_plan/study_plan_repository.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+/// ViewModel for the StudyPlanView, managing the generation and display of the study plan.
+class StudyPlanViewModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>();
+  final StudyPlanRepository _studyPlanRepository =
+      locator<StudyPlanRepository>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  // Reactive property to hold the generated study plan
+  String _studyPlan;
+  String get studyPlan => _studyPlan;
 
-  int _counter = 0;
+  // Loading state for study plan generation
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  // Error message to display in case of any failures
+  String _errorMessage;
+  String get errorMessage => _errorMessage;
+
+  StudyPlanViewModel() {
+    // Initialize or fetch any necessary data here
+    _generateStudyPlan();
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
-    );
+  /// Generates a study plan based on user inputs.
+  /// Handles loading state and error state.
+  Future<void> _generateStudyPlan() async {
+    setBusy(true);
+    _errorMessage = null;
+
+    try {
+      _studyPlan = await _studyPlanRepository.generateStudyPlan();
+      setBusy(false);
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Error generating study plan: ${e.toString()}';
+      setBusy(false);
+      notifyListeners();
+    }
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
-    );
+  /// Navigates to another view, e.g., for reviewing or editing the study plan.
+  Future<void> navigateToEditPlan() async {
+    await _navigationService.navigateTo(Routes.editPlanView);
   }
+
+  @override
+  void dispose() {
+    // Clean up any resources here if needed
+    super.dispose();
+  }
+}
+
+/// Repository interface for study plan generation logic.
+abstract class StudyPlanRepository {
+  /// Generates a study plan. This should handle any necessary business logic.
+  /// Returns a [Future] containing the generated study plan as a [String].
+  Future<String> generateStudyPlan();
+}
+
+/// Mock implementation of StudyPlanRepository for demonstration.
+class MockStudyPlanRepository implements StudyPlanRepository {
+  @override
+  Future<String> generateStudyPlan() async {
+    // Simulate a network or processing delay
+    await Future.delayed(Duration(seconds: 2));
+    return 'Generated Study Plan';
+  }
+}
+
+// Dependency injection setup
+void setupLocator() {
+  locator.registerLazySingleton<NavigationService>(() => NavigationService());
+  locator.registerLazySingleton<StudyPlanRepository>(
+      () => MockStudyPlanRepository());
 }
