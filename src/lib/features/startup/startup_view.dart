@@ -1,56 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:my_app/features/authentication/splash_viewmodel.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({super.key});
-
+class SplashView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'GydeApp',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                Gap(10),
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                ),
-              ],
-            ),
-          ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<SplashViewModel>.reactive(
+      viewModelBuilder: () => SplashViewModel(),
+      onModelReady: (viewModel) => viewModel.initialize(),
+      builder: (context, viewModel, child) => Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Display luxury car interior image
+              Image.asset('assets/images/luxury_car_interior.png'),
+              SizedBox(height: 20),
+              // Display splash screen loading indicator
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
-
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }
