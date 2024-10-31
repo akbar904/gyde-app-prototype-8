@@ -1,30 +1,21 @@
-import 'package:gyde_app/ui/bottom_sheets/notice/notice_sheet.dart';
-import 'package:gyde_app/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:gyde_app/features/home/home_view.dart';
-import 'package:gyde_app/features/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
+import 'package:aorteq_app/features/authentication/login_view.dart';
+import 'package:aorteq_app/features/study_plan/study_plan_view.dart';
+import 'package:aorteq_app/features/question_bank/question_view.dart';
+import 'package:aorteq_app/features/progress_tracking/progress_view.dart';
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
-// @stacked-route
+    MaterialRoute(page: LoginView),
+    MaterialRoute(page: StudyPlanView),
+    MaterialRoute(page: QuestionView),
+    MaterialRoute(page: ProgressView),
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
-  ],
-  bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
-  ],
-  dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
   ],
 )
 class App {}

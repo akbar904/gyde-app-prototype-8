@@ -1,56 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:my_app/features/authentication/login_viewmodel.dart';
 
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({super.key});
-
+class LoginView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'GydeApp',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                Gap(10),
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                ),
-              ],
-            ),
-          ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<LoginViewModel>.reactive(
+      viewModelBuilder: () => LoginViewModel(),
+      builder: (context, viewModel, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Login'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Email'),
+                onChanged: viewModel.updateEmail,
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Password'),
+                obscureText: true,
+                onChanged: viewModel.updatePassword,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: viewModel.isBusy ? null : viewModel.login,
+                child: viewModel.isBusy
+                    ? CircularProgressIndicator()
+                    : Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
-
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }
