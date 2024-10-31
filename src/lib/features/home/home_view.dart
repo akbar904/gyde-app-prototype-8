@@ -1,83 +1,87 @@
+
+// exam_date_view.dart
+
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:gap/gap.dart';
+import 'exam_date_viewmodel.dart';
 
-import 'home_viewmodel.dart';
+class ExamDateView extends StatelessWidget {
+	const ExamDateView({Key? key}) : super(key: key);
 
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
+	@override
+	Widget build(BuildContext context) {
+		return ViewModelBuilder<ExamDateViewModel>.reactive(
+			viewModelBuilder: () => ExamDateViewModel(),
+			builder: (context, model, child) => Scaffold(
+				appBar: AppBar(
+					title: const Text('Select Exam Date'),
+					leading: IconButton(
+						icon: const Icon(Icons.arrow_back),
+						onPressed: model.navigateBack,
+					),
+				),
+				body: SafeArea(
+					child: Padding(
+						padding: const EdgeInsets.all(16.0),
+						child: Column(
+							crossAxisAlignment: CrossAxisAlignment.stretch,
+							children: [
+								const Text(
+									'When is your exam?',
+									style: TextStyle(
+										fontSize: 24,
+										fontWeight: FontWeight.bold,
+									),
+								),
+								const Gap(20),
+								CalendarDatePicker(
+									initialDate: DateTime.now(),
+									firstDate: DateTime.now(),
+									lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
+									onDateChanged: model.selectExamDate,
+								),
+								const Spacer(),
+								ElevatedButton(
+									onPressed: model.selectedDate != null ? model.continueToStudyPlan : null,
+									child: const Text('Continue'),
+								),
+								const Gap(16),
+							],
+						),
+					),
+				),
+			),
+		);
+	}
+}
 
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+// exam_date_viewmodel.dart
 
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import '../../app/app.locator.dart';
+import '../../app/app.router.dart';
+
+class ExamDateViewModel extends BaseViewModel {
+	final _navigationService = locator<NavigationService>();
+	DateTime? _selectedDate;
+
+	DateTime? get selectedDate => _selectedDate;
+
+	void selectExamDate(DateTime date) {
+		_selectedDate = date;
+		notifyListeners();
+	}
+
+	void navigateBack() {
+		_navigationService.back();
+	}
+
+	void continueToStudyPlan() {
+		if (_selectedDate != null) {
+			// Navigate to study plan view
+			_navigationService.navigateTo(Routes.studyPlanView);
+		}
+	}
 }

@@ -1,35 +1,114 @@
-import 'package:gyde_app/app/app.bottomsheets.dart';
-import 'package:gyde_app/app/app.dialogs.dart';
-import 'package:gyde_app/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import '../../app/app.locator.dart';
+import '../../app/app.router.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+/// Interface for exam date persistence and validation
+abstract class IExamDateRepository {
+  Future<bool> validateAndSaveExamDate(DateTime date);
+  Future<DateTime?> getLastSavedDate();
+}
 
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+/// Mock implementation of exam date repository
+class MockExamDateRepository implements IExamDateRepository {
+  @override
+  Future<bool> validateAndSaveExamDate(DateTime date) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return true;
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
-    );
+  @override
+  Future<DateTime?> getLastSavedDate() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return null;
+  }
+}
+
+/// ViewModel for exam date selection screen
+class ExamDateViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+  final _snackbarService = locator<SnackbarService>();
+  final IExamDateRepository _examDateRepository;
+
+  DateTime? _selectedDate;
+  bool _isSaving = false;
+  String? _errorMessage;
+
+  ExamDateViewModel({IExamDateRepository? examDateRepository})
+      : _examDateRepository = examDateRepository ?? MockExamDateRepository() {
+    _init();
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
-    );
+  // Getters
+  DateTime? get selectedDate => _selectedDate;
+  bool get isSaving => _isSaving;
+  String? get errorMessage => _errorMessage;
+  bool get canContinue => _selectedDate != null && !_isSaving;
+
+  /// Initialize view model and load any saved date
+  Future<void> _init() async {
+    setBusy(true);
+    try {
+      final savedDate = await _examDateRepository.getLastSavedDate();
+      if (savedDate != null) {
+        _selectedDate = savedDate;
+        notifyListeners();
+      }
+    } catch (e) {
+      _errorMessage = 'Failed to load saved date';
+      notifyListeners();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  /// Handle exam date selection
+  Future<void> selectExamDate(DateTime date) async {
+    if (date.isBefore(DateTime.now())) {
+      _errorMessage = 'Please select a future date';
+      notifyListeners();
+      return;
+    }
+
+    _errorMessage = null;
+    _selectedDate = date;
+    notifyListeners();
+  }
+
+  /// Navigate back to previous screen
+  void navigateBack() {
+    _navigationService.back();
+  }
+
+  /// Continue to study plan after validating and saving date
+  Future<void> continueToStudyPlan() async {
+    if (_selectedDate == null) return;
+
+    try {
+      _isSaving = true;
+      notifyListeners();
+
+      final success =
+          await _examDateRepository.validateAndSaveExamDate(_selectedDate!);
+
+      if (success) {
+        await _navigationService.navigateTo(Routes.studyPlanView);
+      } else {
+        _errorMessage = 'Failed to save exam date';
+        notifyListeners();
+      }
+    } catch (e) {
+      _errorMessage = 'An error occurred while saving';
+      _snackbarService.showSnackbar(message: 'Failed to save exam date');
+    } finally {
+      _isSaving = false;
+      notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    // Cleanup if needed
+    super.dispose();
   }
 }
