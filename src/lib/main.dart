@@ -4,10 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:gyde_app/app/app.bottomsheets.dart';
 import 'package:gyde_app/app/app.dialogs.dart';
 import 'package:gyde_app/app/app.locator.dart';
+import 'package:gyde_app/features/app/app_view.dart';
 
-import 'features/app/app_view.dart';
-
-void main() async {
+Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -19,11 +18,20 @@ void main() async {
     setupDialogUi();
     setupBottomSheetUi();
 
+    // Set system UI overlay style for dark theme
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+
     runApp(const AppView());
   }, (exception, stackTrace) async {
-    // Handle exceptions here
+    // Log errors to crash reporting service
     print('Caught error: $exception');
     print('Stack trace: $stackTrace');
-    // You might want to log this to a service or show a user-friendly error message
   });
 }
