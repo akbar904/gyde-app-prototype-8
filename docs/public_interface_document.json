@@ -32,10 +32,6 @@
             "notice_sheet_model.dart": {}
           }
         },
-        "common": {
-          "app_colors.dart": {},
-          "ui_helpers.dart": {}
-        },
         "dialogs": {
           "info_alert": {
             "info_alert_dialog.dart": {},
