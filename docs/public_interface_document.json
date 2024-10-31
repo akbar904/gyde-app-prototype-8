@@ -88,7 +88,7 @@
       "methods": [
         {
           "name": "incrementCounter",
-          "description": "Increments the counter value",
+          "description": "Increments the counter value by 1009",
           "parameters": [],
           "return_type": "void"
         },
