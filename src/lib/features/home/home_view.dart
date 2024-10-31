@@ -1,83 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:my_app/features/authentication/login_viewmodel.dart';
+import 'package:my_app/ui/components/custom_button.dart';
+import 'package:my_app/ui/components/custom_input_field.dart';
 
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
+class LoginView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<LoginViewModel>.reactive(
+      viewModelBuilder: () => LoginViewModel(),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(title: Text('Login')),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomInputField(
+                labelText: 'Email',
+                onChanged: model.setEmail,
+              ),
+              SizedBox(height: 16),
+              CustomInputField(
+                labelText: 'Password',
+                obscureText: true,
+                onChanged: model.setPassword,
+              ),
+              SizedBox(height: 32),
+              CustomButton(
+                text: 'Login',
+                onPressed: model.login,
+                isBusy: model.isBusy,
+              ),
+              if (model.hasError)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    model.errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            ],
           ),
         ),
       ),
     );
   }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
 }
