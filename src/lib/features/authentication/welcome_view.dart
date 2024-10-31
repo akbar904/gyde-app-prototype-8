@@ -1,12 +1,8 @@
-// Import necessary packages
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'welcome_viewmodel.dart';
 
-// Import the ViewModel for the view
-import 'package:com.com.walturn.aorteq_app/features/authentication/welcome_viewmodel.dart';
-
-// Define the WelcomeView with the ViewModel
 class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,25 +16,35 @@ class WelcomeView extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Google Sign-In Button
-              ElevatedButton(
-                onPressed: model.signInWithGoogle,
-                child: Text('Sign in with Google'),
+            children: [
+              Text(
+                'Aorteq',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Text(
+                'Your Ultimate Medical Study Companion',
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               SizedBox(height: 20),
-              // Email Login Button
               ElevatedButton(
+                onPressed: model.signInWithGoogle,
+                child: Text('Continue with Google'),
+              ),
+              TextButton(
                 onPressed: model.navigateToEmailAuth,
                 child: Text('Login with Email'),
               ),
-              SizedBox(height: 20),
-              // Sign-Up Button
-              ElevatedButton(
+              TextButton(
                 onPressed: () {
-                  // Navigate to Sign-Up View if applicable
+                  // Navigate to sign-up screen
                 },
                 child: Text('Sign Up'),
+              ),
+              Spacer(),
+              Text(
+                'By continuing, you agree to our Terms and Privacy Policy.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.caption,
               ),
             ],
           ),
