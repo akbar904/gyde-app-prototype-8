@@ -1,83 +1,70 @@
+
+// lib/features/study_planning/study_plan_view.dart
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:my_app/features/study_planning/study_plan_viewmodel.dart';
 
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
+class StudyPlanView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<StudyPlanViewModel>.reactive(
+      viewModelBuilder: () => StudyPlanViewModel(),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Study Plan'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Your Study Plan:',
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(height: 20),
+              if (model.isLoading)
+                CircularProgressIndicator()
+              else
+                Text(
+                  model.studyPlan,
+                  style: TextStyle(fontSize: 16),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: model.generateNewPlan,
+                child: Text('Generate New Plan'),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+```
 
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
+```dart
+// lib/features/study_planning/study_plan_viewmodel.dart
+import 'package:stacked/stacked.dart';
+
+class StudyPlanViewModel extends BaseViewModel {
+  String _studyPlan = 'No plan generated yet.';
+  bool _isLoading = false;
+
+  String get studyPlan => _studyPlan;
+  bool get isLoading => _isLoading;
+
+  void generateNewPlan() async {
+    setBusy(true);
+    _isLoading = true;
+    notifyListeners();
+
+    // Simulate a network call or complex calculation
+    await Future.delayed(Duration(seconds: 2));
+
+    _studyPlan = 'New personalized study plan generated!';
+    _isLoading = false;
+    setBusy(false);
+    notifyListeners();
+  }
 }

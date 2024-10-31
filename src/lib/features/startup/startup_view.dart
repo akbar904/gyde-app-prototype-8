@@ -1,56 +1,58 @@
+
+// lib/features/authentication/welcome_view.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:aorteq_app/features/authentication/welcome_viewmodel.dart';
 
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({super.key});
-
+class WelcomeView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'GydeApp',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                Gap(10),
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                ),
-              ],
-            ),
-          ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<WelcomeViewModel>.reactive(
+      viewModelBuilder: () => WelcomeViewModel(),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Welcome to Aorteq'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Welcome to your medical study companion!',
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: model.navigateToEmailAuth,
+                child: Text('Login with Email'),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: model.navigateToUserInfo,
+                child: Text('Continue as Guest'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
+// lib/features/authentication/welcome_viewmodel.dart
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:aorteq_app/app/app.locator.dart';
+import 'package:aorteq_app/app/app.router.dart';
 
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+class WelcomeViewModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>();
+
+  void navigateToEmailAuth() {
+    _navigationService.navigateTo(Routes.emailAuthView);
+  }
+
+  void navigateToUserInfo() {
+    _navigationService.navigateTo(Routes.userInfoView);
+  }
 }
