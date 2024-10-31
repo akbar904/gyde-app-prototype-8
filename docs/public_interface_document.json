@@ -1,6 +1,6 @@
 {
   "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management.",
+  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management. The app includes a counter functionality that increments by 1009 on each button click.",
   "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection.",
   "folder_structure": {
     "lib": {
@@ -83,12 +83,12 @@
     },
     {
       "name": "lib/features/home/home_viewmodel.dart",
-      "description": "ViewModel for the HomeView, manages the state and business logic.",
+      "description": "ViewModel for the HomeView, manages the state and business logic. The incrementCounter method now adds 1009 to the counter value.",
       "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
       "methods": [
         {
           "name": "incrementCounter",
-          "description": "Increments the counter value",
+          "description": "Increments the counter value by 1009",
           "parameters": [],
           "return_type": "void"
         },
