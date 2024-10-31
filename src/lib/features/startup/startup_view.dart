@@ -1,56 +1,75 @@
+
+// lib/features/study_planning/exam_selection_view.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'exam_selection_viewmodel.dart';
 
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({super.key});
-
+class ExamSelectionView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'GydeApp',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                Gap(10),
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                ),
-              ],
-            ),
-          ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ExamSelectionViewModel>.reactive(
+      viewModelBuilder: () => ExamSelectionViewModel(),
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Select Exam'),
         ),
+        body: model.isBusy
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: model.exams.length,
+                itemBuilder: (context, index) {
+                  final exam = model.exams[index];
+                  return ListTile(
+                    title: Text(exam.name),
+                    subtitle: Text(exam.description),
+                    onTap: () => model.selectExam(exam),
+                  );
+                },
+              ),
       ),
     );
   }
+}
+```
 
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
+```dart
+// lib/features/study_planning/exam_selection_viewmodel.dart
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'exam.dart';
 
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+class ExamSelectionViewModel extends BaseViewModel {
+  final NavigationService _navigationService = NavigationService();
+  
+  List<Exam> _exams = [];
+  List<Exam> get exams => _exams;
+
+  void initialize() async {
+    setBusy(true);
+    // Fetch exams from a repository or service
+    _exams = await fetchExams();
+    setBusy(false);
+  }
+
+  Future<void> selectExam(Exam exam) async {
+    // Handle logic for exam selection
+    // Example: Navigate to the next view
+    await _navigationService.navigateTo('StudyPlanViewRoute', arguments: exam);
+  }
+
+  Future<List<Exam>> fetchExams() async {
+    // Replace with actual data fetching logic
+    return [
+      Exam(name: 'Exam 1', description: 'Description 1'),
+      Exam(name: 'Exam 2', description: 'Description 2'),
+    ];
+  }
+}
+
+class Exam {
+  final String name;
+  final String description;
+
+  Exam({required this.name, required this.description});
 }

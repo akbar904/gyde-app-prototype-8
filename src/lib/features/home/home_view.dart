@@ -1,83 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:com.com.walturn.aorteq_app/app/app.locator.dart';
+import 'package:com.com.walturn.aorteq_app/app/app.router.dart';
+import 'package:com.com.walturn.aorteq_app/ui/common/app_colors.dart';
+import 'package:com.com.walturn.aorteq_app/ui/common/ui_helpers.dart';
+import 'package:com.com.walturn.aorteq_app/features/study_planning/exam_selection_viewmodel.dart';
 
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
+class ExamSelectionView extends StatelessWidget {
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ExamSelectionViewModel>.reactive(
+      viewModelBuilder: () => locator<ExamSelectionViewModel>(),
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Exam Selection'),
+          backgroundColor: AppColors.primary,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Select Your Exam',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              verticalSpaceMedium,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: model.exams.length,
+                  itemBuilder: (context, index) {
+                    final exam = model.exams[index];
+                    return ListTile(
+                      title: Text(exam.name),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      onTap: () => model.selectExam(exam),
+                    );
+                  },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+              verticalSpaceMedium,
+              if (model.isBusy) Center(child: CircularProgressIndicator()),
+            ],
           ),
         ),
       ),
     );
   }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
 }
