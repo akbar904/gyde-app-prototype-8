@@ -27,7 +27,7 @@ class QuestionView extends StatelessWidget {
 								padding: const EdgeInsets.all(16.0),
 								child: Text(
 									'Question ${model.currentQuestionIndex + 1}/${model.questions.length}',
-									style: Theme.of(context).textTheme.headline6,
+									style: Theme.of(context).textTheme.headlineMedium, // Updated to use headlineMedium
 								),
 							),
 							Expanded(
@@ -42,14 +42,14 @@ class QuestionView extends StatelessWidget {
 												children: [
 													Text(
 														model.questions[model.currentQuestionIndex].text,
-														style: Theme.of(context).textTheme.bodyText1,
+														style: Theme.of(context).textTheme.bodyLarge, // Updated to use bodyLarge
 													),
 													if (model.questions[model.currentQuestionIndex].imageUrl != null)
 														Image.network(model.questions[model.currentQuestionIndex].imageUrl!),
 													const SizedBox(height: 16.0),
 													...model.questions[model.currentQuestionIndex].options.map((option) {
 														return ListTile(
-															title: Text(option),
+															title: Text(option, style: Theme.of(context).textTheme.bodyMedium), // Updated to use bodyMedium
 															onTap: () => model.selectAnswer(option),
 														);
 													}).toList(),
@@ -59,11 +59,11 @@ class QuestionView extends StatelessWidget {
 														children: [
 															ElevatedButton(
 																onPressed: model.hasPreviousQuestion ? model.previousQuestion : null,
-																child: Text('Previous'),
+																child: Text('Previous', style: Theme.of(context).textTheme.labelLarge), // Updated to use labelLarge
 															),
 															ElevatedButton(
 																onPressed: model.hasNextQuestion ? model.nextQuestion : null,
-																child: Text('Next'),
+																child: Text('Next', style: Theme.of(context).textTheme.labelLarge), // Updated to use labelLarge
 															),
 														],
 													),

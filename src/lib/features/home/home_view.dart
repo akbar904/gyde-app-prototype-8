@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
 								MaterialPageRoute(builder: (context) => LoginView()),
 							);
 						},
-						child: Text('Go to Login'),
+						child: Text('Go to Login', style: Theme.of(context).textTheme.labelMedium),
 					),
 					ElevatedButton(
 						onPressed: () {
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
 								MaterialPageRoute(builder: (context) => StudyPlanView()),
 							);
 						},
-						child: Text('Go to Study Plan'),
+						child: Text('Go to Study Plan', style: Theme.of(context).textTheme.labelMedium),
 					),
 					ElevatedButton(
 						onPressed: () {
@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
 								MaterialPageRoute(builder: (context) => QuestionView()),
 							);
 						},
-						child: Text('Go to Question Bank'),
+						child: Text('Go to Question Bank', style: Theme.of(context).textTheme.labelMedium),
 					),
 					ElevatedButton(
 						onPressed: () {
@@ -49,7 +49,7 @@ class HomeView extends StatelessWidget {
 								MaterialPageRoute(builder: (context) => ProgressDashboardView()),
 							);
 						},
-						child: Text('Go to Progress Dashboard'),
+						child: Text('Go to Progress Dashboard', style: Theme.of(context).textTheme.labelMedium),
 					),
 				],
 			),
