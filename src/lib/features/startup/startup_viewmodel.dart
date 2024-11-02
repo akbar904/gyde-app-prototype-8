@@ -1,20 +1,72 @@
-import 'package:gyde_app/app/app.locator.dart';
-import 'package:gyde_app/app/app.router.dart';
+
+// lib/features/startup/startup_viewmodel.dart
+
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter/material.dart';
+import 'package:my_app/features/authentication/authentication_repository.dart';
 
 class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+	final TextEditingController emailController = TextEditingController();
+	final TextEditingController passwordController = TextEditingController();
+	final AuthenticationRepository _authenticationRepository;
 
-  // Place anything here that needs to happen before we get into the application
-  // ignore: strict_raw_type
-  Future runStartupLogic() async {
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(seconds: 1));
+	// Indicates loading state during startup
+	bool _isLoading = false;
+	bool get isLoading => _isLoading;
 
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
+	StartupViewModel(this._authenticationRepository);
 
-    await _navigationService.replaceWithHomeView();
-  }
+	/// Handles user startup logic.
+	/// Validates email and password, updates loading state, 
+	/// and calls the authentication repository.
+	Future<void> startup() async {
+		if (_validateInputs()) {
+			_setLoading(true);
+			try {
+				await _authenticationRepository.login(
+					email: emailController.text,
+					password: passwordController.text,
+				);
+				// Handle successful startup (e.g., navigate to another screen)
+			} catch (e) {
+				// Handle error (e.g., show an error message)
+			} finally {
+				_setLoading(false);
+			}
+		}
+	}
+
+	/// Validates email and password inputs.
+	bool _validateInputs() {
+		if (!_validateEmail(emailController.text)) {
+			// Show an error message for invalid email
+			return false;
+		}
+		if (passwordController.text.isEmpty) {
+			// Show an error message for empty password
+			return false;
+		}
+		return true;
+	}
+
+	/// Validates email format.
+	bool _validateEmail(String email) {
+		// Simple regex for email validation
+		final RegExp emailRegEx = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+		return emailRegEx.hasMatch(email);
+	}
+
+	/// Sets the loading state.
+	void _setLoading(bool value) {
+		_isLoading = value;
+		notifyListeners();
+	}
+
+	/// Disposes of controllers to free up resources.
+	@override
+	void dispose() {
+		emailController.dispose();
+		passwordController.dispose();
+		super.dispose();
+	}
 }

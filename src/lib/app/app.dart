@@ -1,16 +1,18 @@
-import 'package:gyde_app/ui/bottom_sheets/notice/notice_sheet.dart';
-import 'package:gyde_app/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:gyde_app/features/home/home_view.dart';
-import 'package:gyde_app/features/startup/startup_view.dart';
+import 'package:gyde_app/features/authentication/login_view.dart';
+import 'package:gyde_app/features/study_plan/study_plan_view.dart';
+import 'package:gyde_app/features/question_bank/question_view.dart';
+import 'package:gyde_app/features/progress_tracking/progress_dashboard_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
-// @stacked-route
+    MaterialRoute(page: LoginView),
+    MaterialRoute(page: StudyPlanView),
+    MaterialRoute(page: QuestionView),
+    MaterialRoute(page: ProgressDashboardView),
+    // @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
@@ -19,11 +21,11 @@ import 'package:stacked_services/stacked_services.dart';
     // @stacked-service
   ],
   bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
+    // Define any bottomsheets if necessary
     // @stacked-bottom-sheet
   ],
   dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
+    // Define any dialogs if necessary
     // @stacked-dialog
   ],
 )
