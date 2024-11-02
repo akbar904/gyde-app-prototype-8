@@ -1,83 +1,58 @@
+
+// lib/features/home/home_view.dart
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'package:my_app/features/authentication/login_viewmodel.dart';
+import 'package:my_app/features/study_plan/study_plan_viewmodel.dart';
+import 'package:my_app/features/question_bank/question_viewmodel.dart';
+import 'package:my_app/features/progress_tracking/progress_dashboard_viewmodel.dart';
 
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
+class HomeView extends StatelessWidget {
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			appBar: AppBar(title: Text('Home')),
+			body: Column(
+				children: [
+					// Implement navigation or buttons to navigate to various views
+					ElevatedButton(
+						onPressed: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => LoginView()),
+							);
+						},
+						child: Text('Go to Login'),
+					),
+					ElevatedButton(
+						onPressed: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => StudyPlanView()),
+							);
+						},
+						child: Text('Go to Study Plan'),
+					),
+					ElevatedButton(
+						onPressed: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => QuestionView()),
+							);
+						},
+						child: Text('Go to Question Bank'),
+					),
+					ElevatedButton(
+						onPressed: () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => ProgressDashboardView()),
+							);
+						},
+						child: Text('Go to Progress Dashboard'),
+					),
+				],
+			),
+		);
+	}
 }

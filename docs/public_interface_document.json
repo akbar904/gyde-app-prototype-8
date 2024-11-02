@@ -1,7 +1,7 @@
 {
-  "package_name": "com.com.walturn.gyde_app",
-  "project_description": "A Flutter project using the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and utilities. It uses Stacked for state management, routing, and dependency injection.",
+  "package_name": "com.com.walturn.aorteq_app",
+  "project_description": "A Flutter web application serving as a USMLE Step 1 study companion called AorteQ, featuring an authentication system, study plan setup, question bank interface, and progress tracking dashboard, all designed with a clean, medical-professional aesthetic.",
+  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and repositories. It uses Stacked for state management, routing, and dependency injection. The architecture has been updated to include repositories for data operations and a new folder structure to accommodate the authentication and study features.",
   "folder_structure": {
     "lib": {
       "app": {
@@ -12,17 +12,24 @@
         "app.router.dart": {}
       },
       "features": {
-        "app": {
-          "app_view.dart": {},
-          "app_viewmodel.dart": {}
+        "authentication": {
+          "login_view.dart": {},
+          "login_viewmodel.dart": {},
+          "auth_repository.dart": {}
         },
-        "home": {
-          "home_view.dart": {},
-          "home_viewmodel.dart": {}
+        "study_plan": {
+          "study_plan_view.dart": {},
+          "study_plan_viewmodel.dart": {},
+          "study_plan_repository.dart": {}
         },
-        "startup": {
-          "startup_view.dart": {},
-          "startup_viewmodel.dart": {}
+        "question_bank": {
+          "question_view.dart": {},
+          "question_viewmodel.dart": {},
+          "question_repository.dart": {}
+        },
+        "progress_tracking": {
+          "progress_dashboard_view.dart": {},
+          "progress_dashboard_viewmodel.dart": {}
         }
       },
       "ui": {
@@ -45,7 +52,7 @@
   "files": [
     {
       "name": "lib/app/app.dart",
-      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes (HomeView, StartupView), services (BottomSheetService, DialogService, NavigationService), bottom sheets (NoticeSheet), and dialogs (InfoAlertDialog). The file structure allows for easy addition of new services, routes, bottom sheets, and dialogs using the @stacked-import, @stacked-route, @stacked-service, @stacked-bottom-sheet, and @stacked-dialog annotations.",
+      "description": "Defines the app structure using StackedApp annotation for routes, dependencies, bottom sheets, and dialogs. It includes routes for LoginView, StudyPlanView, and ProgressDashboardView, along with services for BottomSheetService, DialogService, and NavigationService.",
       "class_diagram": "@startuml\nclass App\n@enduml",
       "methods": [],
       "dependencies": [
@@ -53,14 +60,15 @@
         "package:stacked_services/stacked_services.dart",
         "package:my_app/ui/bottom_sheets/notice/notice_sheet.dart",
         "package:my_app/ui/dialogs/info_alert/info_alert_dialog.dart",
-        "package:my_app/features/home/home_view.dart",
-        "package:my_app/features/startup/startup_view.dart"
+        "package:my_app/features/authentication/login_view.dart",
+        "package:my_app/features/study_plan/study_plan_view.dart",
+        "package:my_app/features/progress_tracking/progress_dashboard_view.dart"
       ]
     },
     {
-      "name": "lib/features/app/app_view.dart",
-      "description": "Defines the root widget of the application",
-      "class_diagram": "@startuml\nclass AppView\nclass _App\n@enduml",
+      "name": "lib/features/authentication/login_view.dart",
+      "description": "Defines the login view for user authentication, featuring input fields for email and password, and buttons for login and social sign-in options.",
+      "class_diagram": "@startuml\nclass LoginView\n@enduml",
       "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart",
@@ -68,69 +76,209 @@
       ]
     },
     {
-      "name": "lib/features/home/home_view.dart",
-      "description": "The main home view of the application.",
-      "class_diagram": "@startuml\nclass HomeView\n@enduml",
-      "methods": [],
+      "name": "lib/features/authentication/login_viewmodel.dart",
+      "description": "ViewModel for the LoginView, manages authentication logic and state.",
+      "class_diagram": "@startuml\nclass LoginViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "login",
+          "description": "Handles user login with email and password.",
+          "parameters": [],
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "signInWithGoogle",
+          "description": "Handles Google sign-in.",
+          "parameters": [],
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "signInWithApple",
+          "description": "Handles Apple sign-in.",
+          "parameters": [],
+          "return_type": "Future<void>"
+        }
+      ],
       "dependencies": [
         "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
+        "package:stacked_services/stacked_services.dart",
+        "package:my_app/features/authentication/auth_repository.dart"
       ]
     },
     {
-      "name": "lib/features/home/home_viewmodel.dart",
-      "description": "ViewModel for the HomeView, manages the state and business logic.",
-      "class_diagram": "@startuml\nclass HomeViewModel\n@enduml",
+      "name": "lib/features/authentication/auth_repository.dart",
+      "description": "Repository for handling authentication data operations.",
+      "class_diagram": "@startuml\nclass AuthRepository\n@enduml",
       "methods": [
         {
-          "name": "incrementCounter",
-          "description": "Increments the counter value",
+          "name": "login",
+          "description": "Logs in the user with email and password.",
+          "parameters": [
+            "String email",
+            "String password"
+          ],
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "signInWithGoogle",
+          "description": "Handles Google sign-in.",
           "parameters": [],
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "signInWithApple",
+          "description": "Handles Apple sign-in.",
+          "parameters": [],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "package:firebase_auth/firebase_auth.dart"
+      ]
+    },
+    {
+      "name": "lib/features/study_plan/study_plan_view.dart",
+      "description": "Defines the view for setting up the initial study plan using a three-step wizard interface.",
+      "class_diagram": "@startuml\nclass StudyPlanView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/study_plan/study_plan_viewmodel.dart",
+      "description": "ViewModel for the StudyPlanView, manages the study plan setup logic.",
+      "class_diagram": "@startuml\nclass StudyPlanViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "setExamDate",
+          "description": "Sets the exam date for the study plan.",
+          "parameters": [
+            "DateTime date"
+          ],
           "return_type": "void"
         },
         {
-          "name": "showDialog",
-          "description": "Shows a custom dialog",
-          "parameters": [],
+          "name": "selectTopics",
+          "description": "Selects topics for the study plan.",
+          "parameters": [
+            "List<String> topics"
+          ],
           "return_type": "void"
         },
         {
-          "name": "showBottomSheet",
-          "description": "Shows a custom bottom sheet",
+          "name": "generateStudySchedule",
+          "description": "Generates a study schedule based on user input.",
           "parameters": [],
           "return_type": "void"
         }
       ],
       "dependencies": [
         "package:stacked/stacked.dart",
+        "package:my_app/features/study_plan/study_plan_repository.dart"
+      ]
+    },
+    {
+      "name": "lib/features/study_plan/study_plan_repository.dart",
+      "description": "Repository for handling study plan data operations.",
+      "class_diagram": "@startuml\nclass StudyPlanRepository\n@enduml",
+      "methods": [
+        {
+          "name": "saveStudyPlan",
+          "description": "Saves the study plan to the database.",
+          "parameters": [
+            "StudyPlan studyPlan"
+          ],
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "fetchStudyPlan",
+          "description": "Fetches the saved study plan from the database.",
+          "parameters": [],
+          "return_type": "Future<StudyPlan>"
+        }
+      ],
+      "dependencies": [
+        "package:cloud_firestore/cloud_firestore.dart"
+      ]
+    },
+    {
+      "name": "lib/features/question_bank/question_view.dart",
+      "description": "Defines the view for displaying questions from the question bank.",
+      "class_diagram": "@startuml\nclass QuestionView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
         "package:stacked_services/stacked_services.dart"
       ]
     },
     {
-      "name": "lib/features/startup/startup_view.dart",
-      "description": "The startup view shown when the app is first launched.",
-      "class_diagram": "@startuml\nclass StartupView\n@enduml",
-      "methods": [],
-      "dependencies": [
-        "package:stacked/stacked.dart",
-        "package:gap/gap.dart"
-      ]
-    },
-    {
-      "name": "lib/features/startup/startup_viewmodel.dart",
-      "description": "ViewModel for the StartupView, handles initialization logic.",
-      "class_diagram": "@startuml\nclass StartupViewModel\n@enduml",
+      "name": "lib/features/question_bank/question_viewmodel.dart",
+      "description": "ViewModel for the QuestionView, manages question display and user interactions.",
+      "class_diagram": "@startuml\nclass QuestionViewModel\n@enduml",
       "methods": [
         {
-          "name": "runStartupLogic",
-          "description": "Runs the startup logic and navigates to the home view",
+          "name": "loadQuestions",
+          "description": "Loads questions from the question bank.",
           "parameters": [],
-          "return_type": "Future"
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "selectAnswer",
+          "description": "Selects an answer for the current question.",
+          "parameters": [
+            "String answer"
+          ],
+          "return_type": "void"
         }
       ],
       "dependencies": [
         "package:stacked/stacked.dart",
+        "package:my_app/features/question_bank/question_repository.dart"
+      ]
+    },
+    {
+      "name": "lib/features/question_bank/question_repository.dart",
+      "description": "Repository for handling question bank data operations.",
+      "class_diagram": "@startuml\nclass QuestionRepository\n@enduml",
+      "methods": [
+        {
+          "name": "fetchQuestions",
+          "description": "Fetches questions from the database.",
+          "parameters": [],
+          "return_type": "Future<List<Question>>"
+        }
+      ],
+      "dependencies": [
+        "package:cloud_firestore/cloud_firestore.dart"
+      ]
+    },
+    {
+      "name": "lib/features/progress_tracking/progress_dashboard_view.dart",
+      "description": "Defines the view for displaying the user's progress and performance metrics.",
+      "class_diagram": "@startuml\nclass ProgressDashboardView\n@enduml",
+      "methods": [],
+      "dependencies": [
+        "package:stacked/stacked.dart",
         "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/progress_tracking/progress_dashboard_viewmodel.dart",
+      "description": "ViewModel for the ProgressDashboardView, manages progress tracking logic.",
+      "class_diagram": "@startuml\nclass ProgressDashboardViewModel\n@enduml",
+      "methods": [
+        {
+          "name": "loadProgress",
+          "description": "Loads the user's progress data.",
+          "parameters": [],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:my_app/features/progress_tracking/progress_repository.dart"
       ]
     },
     {
@@ -140,7 +288,7 @@
       "methods": [
         {
           "name": "main",
-          "description": "The main function that runs the app",
+          "description": "The main function that runs the app.",
           "parameters": [],
           "return_type": "void"
         }
@@ -151,7 +299,7 @@
         "package:my_app/app/app.bottomsheets.dart",
         "package:my_app/app/app.dialogs.dart",
         "package:my_app/app/app.locator.dart",
-        "package:my_app/features/app/app_view.dart"
+        "package:my_app/features/authentication/login_view.dart"
       ]
     }
   ],
@@ -172,12 +320,22 @@
       "purpose": "Services for Stacked architecture"
     },
     {
+      "name": "firebase_auth",
+      "version": "^3.3.0",
+      "purpose": "Firebase authentication for user login"
+    },
+    {
+      "name": "cloud_firestore",
+      "version": "^3.1.0",
+      "purpose": "Cloud Firestore for data storage"
+    },
+    {
       "name": "gap",
       "version": "^2.0.0",
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant StartupView\nparticipant StartupViewModel\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> StartupView: Initialize\nStartupView -> StartupViewModel: Run startup logic\nStartupViewModel -> HomeView: Navigate on completion\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\nHomeViewModel -> HomeView: Update UI\nHomeViewModel -> DialogService: Show dialog\nHomeViewModel -> BottomSheetService: Show bottom sheet\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., HomeViewModel, StartupViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the StartupView. After completing initialization logic, it navigates to the HomeView. Navigation between views is handled by the Stacked Router defined in app.router.dart."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant LoginView\nparticipant LoginViewModel\nparticipant StudyPlanView\nparticipant StudyPlanViewModel\nparticipant QuestionView\nparticipant QuestionViewModel\nparticipant ProgressDashboardView\nparticipant ProgressDashboardViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> LoginView: Show login\nUser -> LoginView: Enter credentials\nLoginView -> LoginViewModel: Call login\nLoginViewModel -> AuthRepository: Authenticate user\nAuthRepository -> LoginViewModel: Return success\nLoginViewModel -> AppView: Navigate to StudyPlanView\nStudyPlanView -> StudyPlanViewModel: Initialize\nUser -> StudyPlanView: Set exam date and topics\nStudyPlanViewModel -> StudyPlanRepository: Save study plan\nStudyPlanRepository -> StudyPlanViewModel: Confirm save\nUser -> StudyPlanView: Generate schedule\nUser -> QuestionView: Start answering questions\nQuestionViewModel -> QuestionRepository: Fetch questions\nUser -> ProgressDashboardView: View progress\nProgressDashboardViewModel -> ProgressRepository: Load progress\n@enduml",
+  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., LoginViewModel, StudyPlanViewModel, QuestionViewModel, ProgressDashboardViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
+  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the LoginView. After successful login, it navigates to the StudyPlanView. Users can then navigate to the QuestionView and ProgressDashboardView as needed. Navigation between views is handled by the Stacked Router defined in app.router.dart."
 }
