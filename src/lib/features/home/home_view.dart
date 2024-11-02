@@ -1,83 +1,80 @@
+
+// lib/features/home/home_view.dart
+
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
+import 'authentication/login_viewmodel.dart';
+import 'study_plan/study_plan_viewmodel.dart';
+import 'question_bank/question_viewmodel.dart';
+import 'progress_tracking/progress_dashboard_viewmodel.dart';
 
-import 'home_viewmodel.dart';
+class HomeView extends StatelessWidget {
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			appBar: AppBar(title: Text('Home')),
+			body: Padding(
+				padding: const EdgeInsets.all(16.0),
+				child: Column(
+					children: [
+						ElevatedButton(
+							onPressed: () {
+								navigateToLogin(context);
+							},
+							child: Text('Login'),
+						),
+						SizedBox(height: 20),
+						ElevatedButton(
+							onPressed: () {
+								navigateToStudyPlan(context);
+							},
+							child: Text('Study Plan Setup'),
+						),
+						SizedBox(height: 20),
+						ElevatedButton(
+							onPressed: () {
+								navigateToQuestionBank(context);
+							},
+							child: Text('Question Bank'),
+						),
+						SizedBox(height: 20),
+						ElevatedButton(
+							onPressed: () {
+								navigateToProgressDashboard(context);
+							},
+							child: Text('Progress Dashboard'),
+						),
+					],
+				),
+			),
+		);
+	}
 
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
+	void navigateToLogin(BuildContext context) {
+		Navigator.push(
+			context,
+			MaterialPageRoute(builder: (context) => LoginView()),
+		);
+	}
 
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Gap(50),
-                Column(
-                  children: [
-                    const Text(
-                      'Hello from STEVE x STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const Gap(25),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+	void navigateToStudyPlan(BuildContext context) {
+		Navigator.push(
+			context,
+			MaterialPageRoute(builder: (context) => StudyPlanView()),
+		);
+	}
 
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
+	void navigateToQuestionBank(BuildContext context) {
+		Navigator.push(
+			context,
+			MaterialPageRoute(builder: (context) => QuestionView()),
+		);
+	}
+
+	void navigateToProgressDashboard(BuildContext context) {
+		Navigator.push(
+			context,
+			MaterialPageRoute(builder: (context) => ProgressDashboardView()),
+		);
+	}
 }
