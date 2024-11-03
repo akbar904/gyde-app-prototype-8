@@ -1,54 +1,7 @@
 {
   "package_name": "com.com.walturn.aorteq_app",
-  "project_description": "A Flutter web application serving as a USMLE Step 1 study companion called AorteQ, featuring an authentication system, study plan setup, question bank interface, and progress tracking dashboard, all designed with a clean, medical-professional aesthetic.",
-  "architecture_overview": "The application follows the Stacked architecture with separate folders for app setup, features, UI components, and repositories. It uses Stacked for state management, routing, and dependency injection. The architecture has been updated to include repositories for data operations and a new folder structure to accommodate the authentication and study features.",
-  "folder_structure": {
-    "lib": {
-      "app": {
-        "app.bottomsheets.dart": {},
-        "app.dart": {},
-        "app.dialogs.dart": {},
-        "app.locator.dart": {},
-        "app.router.dart": {}
-      },
-      "features": {
-        "authentication": {
-          "login_view.dart": {},
-          "login_viewmodel.dart": {},
-          "auth_repository.dart": {}
-        },
-        "study_plan": {
-          "study_plan_view.dart": {},
-          "study_plan_viewmodel.dart": {},
-          "study_plan_repository.dart": {}
-        },
-        "question_bank": {
-          "question_view.dart": {},
-          "question_viewmodel.dart": {},
-          "question_repository.dart": {}
-        },
-        "progress_tracking": {
-          "progress_dashboard_view.dart": {},
-          "progress_dashboard_viewmodel.dart": {}
-        }
-      },
-      "ui": {
-        "bottom_sheets": {
-          "notice": {
-            "notice_sheet.dart": {},
-            "notice_sheet_model.dart": {}
-          }
-        },
-        "dialogs": {
-          "info_alert": {
-            "info_alert_dialog.dart": {},
-            "info_alert_dialog_model.dart": {}
-          }
-        }
-      },
-      "main.dart": {}
-    }
-  },
+  "project_description": "AorteQ is a comprehensive Flutter web application designed as a study companion for the USMLE Step 1 exam. It features a robust authentication system, allowing users to log in via email, Google, or Apple accounts. The application includes a customizable study plan setup, an interactive question bank interface, and a progress tracking dashboard that provides insights into users' study habits and performance. The UI is crafted with a clean, medical-professional aesthetic to enhance the user experience and facilitate effective learning.",
+  "architecture_overview": "The application employs the Stacked architecture, which promotes a clear separation of concerns through distinct layers. The architecture consists of several key components: the UI layer, which includes views like LoginView, StudyPlanView, ProgressDashboardView, and QuestionView; the ViewModel layer, which manages the state and business logic for each view; and the Repository layer, responsible for data operations such as fetching and saving study plans, user authentication, and question retrieval. The app utilizes Stacked for state management, routing, and dependency injection, ensuring efficient navigation and data handling. Custom dialogs and bottom sheets are integrated for user interactions, enhancing the overall functionality.",
   "files": [
     {
       "name": "lib/app/app.dart",
@@ -311,31 +264,71 @@
     },
     {
       "name": "stacked",
-      "version": "^3.4.0",
+      "version": "^3.4.2",
       "purpose": "Stacked architecture for state management and routing"
     },
     {
       "name": "stacked_services",
-      "version": "^1.1.0",
-      "purpose": "Services for Stacked architecture"
+      "version": "^1.4.0",
+      "purpose": "Services for Stacked architecture, including dialog and bottom sheet management"
     },
     {
       "name": "firebase_auth",
-      "version": "^3.3.0",
-      "purpose": "Firebase authentication for user login"
+      "version": "^4.5.0",
+      "purpose": "Firebase authentication for user login and account management"
     },
     {
       "name": "cloud_firestore",
-      "version": "^3.1.0",
-      "purpose": "Cloud Firestore for data storage"
+      "version": "^4.5.0",
+      "purpose": "Cloud Firestore for data storage and retrieval"
     },
     {
       "name": "gap",
-      "version": "^2.0.0",
-      "purpose": "Creating gaps in layouts"
+      "version": "^3.0.1",
+      "purpose": "Creating gaps in layouts for better UI spacing"
+    },
+    {
+      "name": "intl",
+      "version": "^0.18.0",
+      "purpose": "Internationalization and localization support"
+    },
+    {
+      "name": "file_picker",
+      "version": "^8.1.2",
+      "purpose": "File picking functionality for selecting files from the device"
+    },
+    {
+      "name": "equatable",
+      "version": "^2.0.5",
+      "purpose": "Simplifies equality comparisons for Dart objects"
+    },
+    {
+      "name": "logger",
+      "version": "^1.4.0",
+      "purpose": "Logging utility for debugging and tracking application behavior"
+    },
+    {
+      "name": "url_launcher",
+      "version": "^6.3.0",
+      "purpose": "Launching URLs in the mobile platform"
+    },
+    {
+      "name": "google_sign_in",
+      "version": "^6.1.0",
+      "purpose": "Google sign-in functionality for authentication"
+    },
+    {
+      "name": "provider",
+      "version": "^6.1.3",
+      "purpose": "State management solution for Flutter applications"
+    },
+    {
+      "name": "chart_flutter",
+      "version": "^0.5.0",
+      "purpose": "Charting library for displaying data visualizations"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant LoginView\nparticipant LoginViewModel\nparticipant StudyPlanView\nparticipant StudyPlanViewModel\nparticipant QuestionView\nparticipant QuestionViewModel\nparticipant ProgressDashboardView\nparticipant ProgressDashboardViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> LoginView: Show login\nUser -> LoginView: Enter credentials\nLoginView -> LoginViewModel: Call login\nLoginViewModel -> AuthRepository: Authenticate user\nAuthRepository -> LoginViewModel: Return success\nLoginViewModel -> AppView: Navigate to StudyPlanView\nStudyPlanView -> StudyPlanViewModel: Initialize\nUser -> StudyPlanView: Set exam date and topics\nStudyPlanViewModel -> StudyPlanRepository: Save study plan\nStudyPlanRepository -> StudyPlanViewModel: Confirm save\nUser -> StudyPlanView: Generate schedule\nUser -> QuestionView: Start answering questions\nQuestionViewModel -> QuestionRepository: Fetch questions\nUser -> ProgressDashboardView: View progress\nProgressDashboardViewModel -> ProgressRepository: Load progress\n@enduml",
-  "state_management_flow": "State is managed using the Stacked architecture. ViewModels (e.g., LoginViewModel, StudyPlanViewModel, QuestionViewModel, ProgressDashboardViewModel) handle the business logic and state for their respective views. The app.locator.dart file sets up dependency injection, while app.router.dart manages navigation between views.",
-  "navigation_flow": "The application starts with main.dart, which sets up the app and runs AppView. AppView initializes the Stacked architecture and shows the LoginView. After successful login, it navigates to the StudyPlanView. Users can then navigate to the QuestionView and ProgressDashboardView as needed. Navigation between views is handled by the Stacked Router defined in app.router.dart."
+  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AorteQApp\nparticipant LoginView\nparticipant LoginViewModel\nparticipant StudyPlanView\nparticipant StudyPlanViewModel\nparticipant QuestionView\nparticipant QuestionViewModel\nparticipant ProgressDashboardView\nparticipant ProgressDashboardViewModel\nparticipant BottomSheetService\nparticipant DialogService\n\nUser -> main: Launch app\nmain -> AorteQApp: Create and run\nAorteQApp -> LoginView: Show login\nUser -> LoginView: Enter credentials\nLoginView -> LoginViewModel: Call login\nLoginViewModel -> AuthRepository: Authenticate user\nAuthRepository -> LoginViewModel: Return success\nLoginViewModel -> AorteQApp: Navigate to StudyPlanView\nStudyPlanView -> StudyPlanViewModel: Initialize\nUser -> StudyPlanView: Set exam date and topics\nStudyPlanViewModel -> StudyPlanRepository: Save study plan\nStudyPlanRepository -> StudyPlanViewModel: Confirm save\nUser -> StudyPlanView: Generate schedule\nUser -> QuestionView: Start answering questions\nQuestionViewModel -> QuestionRepository: Fetch questions\nUser -> ProgressDashboardView: View progress\nProgressDashboardViewModel -> ProgressRepository: Load progress\nUser -> BottomSheetService: Show notice\nUser -> DialogService: Show info alert\n@enduml",
+  "state_management_flow": "State management is handled using the Stacked architecture, where each view has a corresponding ViewModel (e.g., LoginViewModel, StudyPlanViewModel, QuestionViewModel, ProgressDashboardViewModel). These ViewModels manage the business logic and state for their respective views. The app.locator.dart file sets up dependency injection for services like BottomSheetService and DialogService. State is initialized when the ViewModel is created and cleaned up when the view is disposed. Loading and error states are managed using reactive properties, allowing the UI to respond to changes in state effectively.",
+  "navigation_flow": "The application starts with main.dart, which initializes the AorteQApp and sets up the Stacked architecture. The initial route is defined in app.router.dart, leading to the LoginView. Upon successful authentication, the app navigates to the StudyPlanView. Users can navigate to the QuestionView and ProgressDashboardView as needed. Navigation is handled by the NavigationService, which allows for easy route management and state preservation during transitions. Route definitions are specified in the StackedApp annotation, and deep linking is not currently implemented."
 }
