@@ -58,6 +58,7 @@ class StudyPlanView extends StatelessWidget {
 															labelText: 'Exam Date',
 															labelStyle: Theme.of(context).textTheme.labelMedium,
 														),
+														readOnly: true,
 														onTap: () async {
 															DateTime? pickedDate = await showDatePicker(
 																context: context,
