@@ -7,7 +7,7 @@ class LoginView extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return ViewModelBuilder.reactive(
-			viewModelBuilder: () => LoginViewModel(authRepository: AuthRepository()), // Use dependency injection as needed
+			viewModelBuilder: () => LoginViewModel(),
 			onModelReady: (model) {
 				// Perform any initialization if necessary
 			},
@@ -35,12 +35,12 @@ class LoginView extends StatelessWidget {
 										suffixIcon: IconButton(
 											icon: Icon(Icons.visibility),
 											onPressed: () {
-												// Toggle password visibility
+												model.togglePasswordVisibility(); // Toggle password visibility
 											},
 										),
 										errorText: model.passwordError,
 									),
-									obscureText: true,
+									obscureText: model.isPasswordVisible ? false : true,
 									onChanged: model.updatePassword,
 								),
 								Align(

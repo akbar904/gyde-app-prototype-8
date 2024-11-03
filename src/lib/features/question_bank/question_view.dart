@@ -9,7 +9,7 @@ class QuestionView extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return ViewModelBuilder<QuestionViewModel>.reactive(
-			viewModelBuilder: () => QuestionViewModel(questionRepository: locator<QuestionRepository>()), // Assuming locator is set up
+			viewModelBuilder: () => QuestionViewModel(),
 			onModelReady: (model) => model.loadQuestions(),
 			builder: (context, model, child) {
 				return Scaffold(
